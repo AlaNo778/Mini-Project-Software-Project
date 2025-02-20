@@ -75,7 +75,11 @@ if (mysqli_num_rows($result) > 0) {
             <div class="menu-sidebar" id="menuSidebar">
                 <a href="company_dashboard.php"><img src="../Icon/i1.png" alt="Home Icon"> หน้าหลัก</a>
                 <a href="company_profile.php"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
+<<<<<<< HEAD
                 <a href="Company_Intern.php"><img src="../Icon/i3.png" alt="Form Icon"> ใบสหกิจ</a>
+=======
+                <a href="Inter_from.php"><img src="../Icon/i3.png" alt="Form Icon"> ใบสหกิจ</a>
+>>>>>>> 3c4cd843bca25ca2b11a6ad781d94a48bce07cbd
             </div>
         </div>
         <div class="logo-psu"><img src="../Icon/icon-psu.png" alt="PSU Logo"></div>

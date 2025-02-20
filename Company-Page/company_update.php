@@ -21,7 +21,11 @@ $editable = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $editable = true;
 
+<<<<<<< HEAD
     if (isset($_POST['editable'])) {
+=======
+    if (isset($_POST['edit'])) {
+>>>>>>> 3c4cd843bca25ca2b11a6ad781d94a48bce07cbd
         $editable = true;
     } elseif (isset($_POST['save'])) {
         $comp_name = mysqli_real_escape_string($conn, $_POST['comp_name']);
@@ -86,7 +90,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="menu-sidebar" id="menuSidebar">
                 <a href="company_dashboard.php"><img src="../Icon/i1.png" alt="Home Icon"> หน้าหลัก</a>
                 <a href="company_profile.php"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
+<<<<<<< HEAD
                 <a href="Company_Intern.php"><img src="../Icon/i3.png" alt="Form Icon"> ใบสหกิจ</a>
+=======
+                <a href="Inter_from.php"><img src="../Icon/i3.png" alt="Form Icon"> ใบสหกิจ</a>
+>>>>>>> 3c4cd843bca25ca2b11a6ad781d94a48bce07cbd
             </div>
         </div>
         <div class="logo-psu"><img src="../Icon/icon-psu.png" alt="PSU Logo"></div>
