@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Prompt", sans-serif;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -19,7 +21,7 @@ body {
 }
 .header .user {
     margin-right: 20px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Prompt", Helvetica, sans-serif;
     font-size: large;
     font-weight: 200;
     
@@ -38,8 +40,9 @@ body {
     text-align: center;
     margin: 0 20px;
     font-weight: 200;
-    font-family: 'Arial, Helvetica, sans-serif';
+    font-family: "Prompt", Helvetica, sans-serif;
     padding: 50px;
+
 }
 .menu-item img {
     width: 250px;
@@ -52,6 +55,10 @@ body {
 .menu-item p {
     margin-top: 10px;
     font-size: 18px;
+    color: black;
+}
+.menu-item a {
+    text-decoration: none;
 }
 .logo-psu img{
     width: 52px;
@@ -99,6 +106,7 @@ body {
     transition: 0.2s;
     justify-content: flex-start; /* ทำให้ข้อความและไอคอนชิดซ้าย */
     margin-top: 20px;
+    font-family: "Prompt";
     
     
 }
@@ -152,9 +160,10 @@ body {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     left: auto;
-    right: -50%;
+    right: -30%;
     top: 100%;
     align-items: center;
+    
     
   }
   
@@ -202,8 +211,303 @@ body {
     border-radius: 50%; /* ทำให้เป็นวงกลม */
     margin-right: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+    font-family: "Prompt";
 }
-.bar-user {
+.container {
+    max-width:151vh;
+    height: 88vh;
+    margin-left: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    
+    
+    
+}
+.header-profile {
+    display: flex;
+    gap: 10px;
+    margin-left: 85px;
+    padding-bottom: 80px;
+    
+}
+.header-profile a {
+    border: 1px solid rgb(199, 199, 199);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    display: inline-block;
+    border-radius: 7px;
+    text-decoration: none;
+    color: black;
+}
+
+.header-profile .Y-button {
+    background-color: #FBDB48;
+}
+
+.profile-card {
+    width: 300px;
+    height: 400px;
+    padding: 20px;
+    background: #ffffff;
+    border: 2px solid black;
+    border-radius: 0px;
+    margin-right: 90px;
+    position: relative;
+    text-align: center;
+   
+}
+.profile-card img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: #6c757d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 10;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+
+}
+.profile-info {
+    margin-left: 20px;
+    margin-top: 80px;
+}
+.info-list {
+    margin-top: 20px;
+    display: contents;
+    
+}
+
+.info-list p {
+    margin: 5px 0;
+    text-align: left;
+    padding: 8px;
+    font-size: 23px;
+    
+}
+
+.info-list .fix-text{
+    text-align: left;
+}
+
+
+.info-list .nonfix-text{
+    margin-left: 40px;
+    text-align: left;
+}
+
+.edit-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 18px;
+    
+}
+.edit-link:hover {
+    text-decoration: underline;
+}
+.in-container{
+    
     display: flex;
     align-items: center;
+    /*justify-content: space-evenly;*/
+    margin-left: 90px;
+    
+
+    
+
+}
+.header-profile2{
+    text-align: left;
+    margin-left: 85px;
+    font-size: 30px;
+    font-style: normal;
+}
+
+.in-info{
+    margin-top: 45px;
+    
+}
+.edit-profile-content{
+    display: flex;
+    padding-left: 50px;
+    padding-bottom: 50px;
+    /*margin-left: 90px;*/
+    text-align: left;
+    font-size: 22px;
+}
+
+.container-edit {
+    max-width:151vh;
+    height: 88vh;
+    margin-left: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    
+    
+    
+}
+.header-profile-edit {
+    display: flex;
+    gap: 10px;
+    margin-left: 85px;
+    padding-bottom: 50px;
+    
+}
+.header-profile-edit a {
+    border: 1px solid rgb(199, 199, 199);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    display: inline-block;
+    border-radius: 7px;
+    text-decoration: none;
+    color: black;
+}
+.header-profile2-edit{
+    text-align: left;
+    margin-left: 85px;
+    font-size: 30px;
+    font-style: normal;
+}
+
+.header-profile-edit .Y-button {
+    background-color: #FBDB48;
+}
+
+
+.edit-all-profile .info-edit{
+    display: flex;
+    flex-direction: column;
+    
+}
+.info-edit{
+    display: contents;
+}
+
+.info-edit input{
+    width: 280px;
+    height: 20px;
+    margin-left: 80px;
+    padding: 8px;
+    margin-bottom: 3px;
+    font-size: 18px;
+    margin-bottom: 2px;
+    margin-top: 10px;
+    
+    
+    
+}
+
+.edit-all-profile{
+    display: flex;
+    flex-direction: row;
+}
+.edit-fix-info p{
+    text-align: left;
+    margin-left: 90px;
+    font-size: 20px;
+    
+}
+
+.edit-img{
+    display: flex;
+    flex-direction: column;
+    margin-left: 90px;
+    align-items: center;
+    
+}
+
+input[type="file"] {
+    margin-top: 40px;
+    color: transparent;
+    
+    
+}
+
+.custom-file-upload {
+    display: inline-block;
+    width: 110px;
+    padding: 6px 24px;
+    background-color: rgb(194, 194, 194); /* สีเหลือง */
+    color: black; /* สีข้อความ */
+    font-size: 18px;
+    border-radius: 15px; /* ความโค้งมน */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.custom-file-upload:hover {
+    background-color: #FBDB48; /* สีเหลืองเข้มขึ้นเมื่อ hover */
+}
+
+.custom-file-upload input {
+    display: none; /* ซ่อน input file */
+}
+
+.edit-img p{
+    color: red;
+}
+
+
+.button-group{
+    margin-top: 40px;
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+}
+.button-group button{
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    
+}
+
+.b-red{
+    background-color: #fd9393;
+    color: black;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.b-red img{
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    margin-left: 10px;
+    
+}
+.b-red a{
+    font-family: "Prompt", sans-serif;
+    font-size: 18px;
+    
+    
+}
+.b-blue{
+    background-color: rgb(151, 151, 253);
+    color: black;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.b-blue{
+    font-family: "Prompt", sans-serif;
+    font-size: 18px;
+}
+
+.b-green{
+    background-color: rgb(140, 255, 140);
+    color: black;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.b-green{
+    font-family: "Prompt", sans-serif;
+    font-size: 18px;
+}
+.button-group a {
+    text-decoration: none;
 }
