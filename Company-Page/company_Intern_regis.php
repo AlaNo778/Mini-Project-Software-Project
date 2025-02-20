@@ -51,7 +51,7 @@ function displayStudentData($conn, $comp_id) {
             echo '<td>' . $row['std_fname'] . ' ' . $row['std_lname'] . '</td>';
             echo '<td>' . $row['reg_job'] . '</td>';
             echo '<td>
-                    <a href="coordinator_regis_app.php?id=' . $std_id . '">
+                    <a href="company_Intern_info.php?id=' . $std_id . '">
                         <button class="assign-btn">
                             <img src="../Icon/co5.png" alt="Assign Icon" class="icon-img" />
                         </button>
