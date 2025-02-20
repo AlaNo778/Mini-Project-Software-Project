@@ -296,12 +296,14 @@ body {
 
 .info-list .fix-text{
     text-align: left;
+    margin-bottom: auto;
 }
 
 
 .info-list .nonfix-text{
     margin-left: 40px;
     text-align: left;
+    margin-bottom: auto;
 }
 
 .edit-link {

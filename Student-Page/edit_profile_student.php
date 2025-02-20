@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $major = mysqli_real_escape_string($conn, $_POST['std_major']);
 
         // ตั้งค่าพาธสำหรับอัปโหลด
-        $upload_dir = "./Images-Profile-Student/";
+        $upload_dir = "./Images-Profile-Company/";
 
         // ตรวจสอบการอัปโหลดไฟล์
         if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] == 0) {

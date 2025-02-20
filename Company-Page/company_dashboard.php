@@ -50,8 +50,7 @@ if (mysqli_num_rows($result) > 0) {
             <div class="menu-sidebar" id="menuSidebar">
                 <a href="company_dashboard.php"><img src="../Icon/i1.png" alt="Home Icon"> หน้าหลัก</a>
                 <a href="company_profile.php"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
-                <a href="form_registration.php"><img src="../Icon/i3.png" alt="Form Icon"> กรอกใบสมัคร</a>
-                <a href="status.php"><img src="../Icon/i4.png" alt="Status Icon"> สถานะ</a>
+                <a href="Inter_from.php"><img src="../Icon/i3.png" alt="Form Icon"> ใบสหกิจ</a>
             </div>
         </div>
 

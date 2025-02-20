@@ -19,7 +19,7 @@ $u_id = $_SESSION['u_id']; // รับค่าจาก session ที่เ�
 $query = "SELECT 
             c.comp_name, c.comp_hr_name, c.comp_hr_depart, c.comp_contact, c.comp_tel,
             c.comp_num_add, c.comp_mu, c.comp_road, c.comp_alley, c.comp_sub_district, 
-            c.comp_district, c.comp_province, c.comp_postcode,
+            c.comp_district, c.comp_province, c.comp_postcode, c.comp_img,
             u.username, u.u_type
           FROM Company c 
           JOIN users u ON c.u_id = u.u_id
@@ -44,6 +44,7 @@ if (mysqli_num_rows($result) > 0) {
     $Comp_District = $row['comp_district']; // อำเภอ
     $Comp_Province = $row['comp_province']; // จังหวัด
     $Comp_Postcode = $row['comp_postcode']; // รหัสไปรษณีย์
+    $Comp_Img = $row['comp_img'];
     $Username = $row['username']; // ชื่อผู้ใช้
     $User_Type = $row['u_type']; // ประเภทผู้ใช้
 
@@ -53,8 +54,6 @@ if (mysqli_num_rows($result) > 0) {
     die("No company data found.");
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="th">
@@ -77,34 +76,32 @@ if (mysqli_num_rows($result) > 0) {
                 <a href="company_dashboard.php"><img src="../Icon/i1.png" alt="Home Icon"> หน้าหลัก</a>
                 <a href="company_profile.php"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
                 <a href="Inter_from.php"><img src="../Icon/i3.png" alt="Form Icon"> ใบสหกิจ</a>
-
             </div>
         </div>
         <div class="logo-psu"><img src="../Icon/icon-psu.png" alt="PSU Logo"></div>
         <div class="bar-user">
-        <div class="user"><?= $Comp_Name ?></div>
-        <div class="profile-circle"><?= $firstLetter ?></div>
-        <div class="dropdown">
-        
-            <button class="dropbtn"><i class="fas fa-chevron-down"></i></button>
-            <div class="dropdown-content">
-                <a href="company_update.php"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
-                <a href="../logout.php"><img src="../Icon/i7.png" alt="Logout Icon">ออกจากระบบ</a>
+            <div class="user"><?= $Comp_Name ?></div>
+            <div class="profile-circle"><?= $firstLetter ?></div>
+            <div class="dropdown">
+                <button class="dropbtn"><i class="fas fa-chevron-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="company_update.php"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
+                    <a href="../logout.php"><img src="../Icon/i7.png" alt="Logout Icon">ออกจากระบบ</a>
+                </div>
             </div>
-        </div>
         </div>
     </div>
     <div class="container">
-            <div class="header-profile2"><p>ข้อมูลส่วนตัว</p></div>
-            <div class="header-profile"> 
-                <a href="Company_dashboard.php">หน้าหลัก</a>
-                <a class="Y-button"><img src="../Icon/i8.png""> ข้อมูลส่วนตัว</a>
-            </div>
+        <div class="header-profile2"><p>ข้อมูลส่วนตัว</p></div>
+        <div class="header-profile"> 
+            <a href="Company_dashboard.php">หน้าหลัก</a>
+            <a class="Y-button"><img src="../Icon/i8.png"> ข้อมูลส่วนตัว</a>
+        </div>
         
         <div class="in-container">
             <div class="profile-card">
                 <div>
-                    <img src="Images-Profile-Student/<?= $Std_Img?>.jpg" alt="Profile">
+                    <img src="Images-Profile-Company/<?= $Comp_Img ?>.jpg" alt="Profile">
                 </div>
                 
                 <div class="profile-info">
@@ -129,9 +126,9 @@ if (mysqli_num_rows($result) > 0) {
                     <div><p>Email:</p></div>
                     <div><p>โทรศัพท์:</p></div>
                     <div><p>ที่อยู่:</p></div>
-                 </div>
+                </div>
                 <div class="nonfix-text">
-                    <div><?= $Comp_Name ?></p></div>
+                    <div><?= $Comp_Name ?></div>
                     <div><p><?= $Comp_HR_Name ?></p></div>
                     <div><p><?= $Comp_HR_Depart ?></p></div>
                     <div><p><?= $Comp_Contact ?></p></div>
