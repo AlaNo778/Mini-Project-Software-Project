@@ -1,69 +1,83 @@
-<?php 
+<?php
 session_start();
 include '../config.php';
 
+// ตรวจสอบว่าผู้ใช้เข้าสู่ระบบหรือไม่
 if (!isset($_SESSION['u_type']) || $_SESSION['u_type'] != 'Company') {
-    header("Location: ../unauthorized.php");
+    header("Location: ../index.php");
     exit();
 }
 
 $u_id = $_SESSION['u_id'];
+$editable = true;
+
+// ดึงข้อมูลบริษัทจากฐานข้อมูล
 $query = "SELECT * FROM Company WHERE u_id = ?";
-$stmt = mysqli_prepare($conn, $query);
-mysqli_stmt_bind_param($stmt, "i", $u_id);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
-$row = mysqli_fetch_assoc($result);
-mysqli_stmt_close($stmt);
+if ($stmt = $conn->prepare($query)) {
+    $stmt->bind_param("i", $u_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+    } else {
+        die("ไม่พบข้อมูลบริษัท");
+    }
+    $stmt->close();
+} else {
+    die("เกิดข้อผิดพลาดในการดึงข้อมูลบริษัท!");
+}
 
-$editable = false;
-
+// ตรวจสอบว่ามีการกดปุ่มอัปเดตข้อมูลหรือไม่
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $editable = true;
+    $comp_name = trim($_POST['comp_name']);
+    $comp_hr_name = trim($_POST['comp_hr_name']);
+    $comp_contact = trim($_POST['comp_contact']);
+    $comp_tel = trim($_POST['comp_tel']);
+    $comp_num_add = trim($_POST['comp_num_add']);
+    $comp_mu = trim($_POST['comp_mu']);
+    $comp_road = trim($_POST['comp_road']);
+    $comp_alley = trim($_POST['comp_alley']);
+    $comp_sub_district = trim($_POST['comp_sub_district']);
+    $comp_district = trim($_POST['comp_district']);
+    $comp_province = trim($_POST['comp_province']);
+    $comp_postcode = trim($_POST['comp_postcode']);
 
-    if (isset($_POST['editable'])) {
-        $editable = true;
-    } elseif (isset($_POST['save'])) {
-        $comp_name = mysqli_real_escape_string($conn, $_POST['comp_name']);
-        $comp_hr_name = mysqli_real_escape_string($conn, $_POST['comp_hr_name']);
-        $comp_contact = mysqli_real_escape_string($conn, $_POST['comp_contact']);
-        $comp_tel = mysqli_real_escape_string($conn, $_POST['comp_tel']);
-        $comp_num_add = mysqli_real_escape_string($conn, $_POST['comp_num_add']);
-        $comp_mu = mysqli_real_escape_string($conn, $_POST['comp_mu']);
-        $comp_road = mysqli_real_escape_string($conn, $_POST['comp_road']);
-        $comp_alley = mysqli_real_escape_string($conn, $_POST['comp_alley']);
-        $comp_sub_district = mysqli_real_escape_string($conn, $_POST['comp_sub_district']);
-        $comp_district = mysqli_real_escape_string($conn, $_POST['comp_district']);
-        $comp_province = mysqli_real_escape_string($conn, $_POST['comp_province']);
-        $comp_postcode = mysqli_real_escape_string($conn, $_POST['comp_postcode']);
-        // ไม่ใช้ comp_img เพราะไม่มี input นี้
-        // $comp_img = mysqli_real_escape_string($conn, $_POST['comp_img']);
+    // ตรวจสอบว่าข้อมูลครบถ้วน
+    if (
+        !empty($comp_name) && !empty($comp_hr_name) && !empty($comp_contact) && 
+        !empty($comp_tel) && !empty($comp_num_add) && !empty($comp_mu) &&
+        !empty($comp_road) && !empty($comp_sub_district) && !empty($comp_district) && 
+        !empty($comp_province) && !empty($comp_postcode)
+    ) {
+        $query = "UPDATE Company 
+                  SET comp_name=?, comp_hr_name=?, comp_contact=?, comp_tel=?, 
+                      comp_num_add=?, comp_mu=?, comp_road=?, comp_alley=?, 
+                      comp_sub_district=?, comp_district=?, comp_province=?, comp_postcode=?
+                  WHERE u_id=?";
+        
+        if ($stmt = $conn->prepare($query)) {
+            $stmt->bind_param(
+                "ssssssssssssi", 
+                $comp_name, $comp_hr_name, $comp_contact, $comp_tel, 
+                $comp_num_add, $comp_mu, $comp_road, $comp_alley, 
+                $comp_sub_district, $comp_district, $comp_province, $comp_postcode, 
+                $u_id
+            );
 
-        $upload_dir = "./Images-Profile-Company/";
-        $image_data = $row['comp_img'];  // ใช้คอลัมน์ comp_img จากฐานข้อมูล
-
-        if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] == 0) {
-            $file_tmp = $_FILES['profile_image']['tmp_name'];
-            $new_file_name = "profile-" . $u_id . ".jpg";
-            $new_file_path = $upload_dir . $new_file_name;
-            if (move_uploaded_file($file_tmp, $new_file_path)) {
-                $image_data = $new_file_name;
-            } else {
-                echo "<script>alert('อัปโหลดรูปภาพไม่สำเร็จ');</script>";
-            }
-        }
-
-        $update_query = "UPDATE Company SET comp_name=?, comp_hr_name=?, comp_contact=?, comp_tel=?, comp_num_add=?, comp_mu=?, comp_road=?, comp_alley=?, comp_sub_district=?, comp_district=?, comp_province=?, comp_postcode=?, comp_img=? WHERE u_id=?";
-        if ($stmt = mysqli_prepare($conn, $update_query)) {
-            mysqli_stmt_bind_param($stmt, "sssssssssssssi", $comp_name, $comp_hr_name, $comp_contact, $comp_tel, $comp_num_add, $comp_mu, $comp_road, $comp_alley, $comp_sub_district, $comp_district, $comp_province, $comp_postcode, $image_data, $u_id);
-            if (mysqli_stmt_execute($stmt)) {
+            if ($stmt->execute()) {
+                $_SESSION['success'] = "อัปเดตข้อมูลสำเร็จ!";
                 header("Location: company_profile.php");
                 exit();
             } else {
-                echo "<script>alert('เกิดข้อผิดพลาดในการอัปเดตข้อมูล');</script>";
+                $_SESSION['error'] = "เกิดข้อผิดพลาดในการอัปเดตข้อมูล!";
             }
-            mysqli_stmt_close($stmt);
+            $stmt->close();
+        } else {
+            $_SESSION['error'] = "เกิดข้อผิดพลาดในการเตรียมคำสั่ง SQL!";
         }
+    } else {
+        $_SESSION['error'] = "กรุณากรอกข้อมูลให้ครบถ้วน!";
     }
 }
 ?>
@@ -128,40 +142,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p>รหัสไปรษณีย์:</p>
                 </div>
                 <div class="info-edit">
-                    <input type="text" name="comp_name" value="<?= $row['comp_name'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
-                    <input type="text" name="comp_hr_name" value="<?= $row['comp_hr_name'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
-                    <input type="email" name="comp_contact" value="<?= $row['comp_contact'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
-                    <input type="text" name="comp_tel" value="<?= $row['comp_tel'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
-                    <input type="text" name="comp_num_add" value="<?= $row['comp_num_add'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
-                    <input type="text" name="comp_mu" value="<?= $row['comp_mu'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
-                    <input type="text" name="comp_road" value="<?= $row['comp_road'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
-                    <input type="text" name="comp_alley" value="<?= $row['comp_alley'] ?>" <?= !$editable ? 'disabled' : '' ?>>
-                    <input type="text" name="comp_sub_district" value="<?= $row['comp_sub_district'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
-                    <input type="text" name="comp_district" value="<?= $row['comp_district'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
-                    <input type="text" name="comp_province" value="<?= $row['comp_province'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
-                    <input type="text" name="comp_postcode" value="<?= $row['comp_postcode'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
+                    <input type="text" name="comp_name" value="<?= htmlspecialchars($row['comp_name']) ?>" required>
+                    <input type="text" name="comp_hr_name" value="<?= htmlspecialchars($row['comp_hr_name']) ?>" required>
+                    <input type="email" name="comp_contact" value="<?= htmlspecialchars($row['comp_contact']) ?>" required>
+                    <input type="text" name="comp_tel" value="<?= htmlspecialchars($row['comp_tel']) ?>" required>
+                    <input type="text" name="comp_num_add" value="<?= htmlspecialchars($row['comp_num_add']) ?>" required>
+                    <input type="text" name="comp_mu" value="<?= htmlspecialchars($row['comp_mu']) ?>" required>
+                    <input type="text" name="comp_road" value="<?= htmlspecialchars($row['comp_road']) ?>" required>
+                    <input type="text" name="comp_alley" value="<?= htmlspecialchars($row['comp_alley']) ?>">
+                    <input type="text" name="comp_sub_district" value="<?= htmlspecialchars($row['comp_sub_district']) ?>" required>
+                    <input type="text" name="comp_district" value="<?= htmlspecialchars($row['comp_district']) ?>" required>
+                    <input type="text" name="comp_province" value="<?= htmlspecialchars($row['comp_province']) ?>" required>
+                    <input type="text" name="comp_postcode" value="<?= htmlspecialchars($row['comp_postcode']) ?>" required>
                 </div>
                 <div class="edit-img">
-                    <img src="../Images-Profile-Company/<?= $row['comp_img'] ?>" alt="Logo">
-                    <label class="custom-file-upload">
-                        <input type="file" name="profile_image" <?= !$editable ? 'disabled' : '' ?>
-                               accept="image/jpeg" 
-                               onchange="displayFileName(this)">
-                        Choose File
-                    </label>
-                    <span id="fileName"></span>
-                    <p> </p>
+                    <img src="..\Icon\i9.png">
+                    <label class="custom-file-upload"><input type="file" name="profile_image" <?= !$editable ? 'disabled' : '' ?>>Choose File</label>
+                    <p> *Accepted file type : .jpg</p>
                 </div>
             </div>
 
             <div class="button-group">
-                <?php if (!$editable): ?>
-                    <button class="b-red"><a href="company_profile.php" class="cancel-button">ยกเลิก<img src="../Icon/i10.png"></a></button>
-                    <button class="b-blue" type="submit" name="edit">แก้ไข <img src="../Icon/i8.png"></button>
-                <?php else: ?>
-                    <button class="b-red"><a href="company_profile.php" class="cancel-button">ยกเลิก<img src="../Icon/i10.png"></a></button>
-                    <button class="b-green" type="submit" name="save">บันทึก <img src="../Icon/i8.png"></button>
-                <?php endif; ?>
+                <button class="b-red"><a href="company_profile.php" class="cancel-button">ยกเลิก<img src="../Icon/i10.png"></a></button>
+                <button class="b-green" type="submit" name="save">บันทึก <img src="../Icon/i8.png"></button>
             </div>
         </form>
     </div>
