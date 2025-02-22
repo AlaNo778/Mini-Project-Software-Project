@@ -27,29 +27,37 @@ $query = "SELECT
 
 $result = mysqli_query($conn, $query); // ดำเนินการคำสั่ง SQL
 
+$upload_dir = "Images-Profile-Company/";
+
 // ตรวจสอบว่ามีข้อมูลหรือไม่
 if (mysqli_num_rows($result) > 0) {
-    // ดึงข้อมูลมาเก็บในตัวแปร
     $row = mysqli_fetch_assoc($result);
-    $Comp_Name = $row['comp_name']; // ชื่อบริษัท
-    $Comp_HR_Name = $row['comp_hr_name']; // ชื่อ HR
-    $Comp_HR_Depart = $row['comp_hr_depart']; // แผนก HR
-    $Comp_Contact = $row['comp_contact']; // อีเมลติดต่อ
-    $Comp_Tel = $row['comp_tel']; // เบอร์โทรบริษัท
-    $Comp_Num_Add = $row['comp_num_add']; // บ้านเลขที่
-    $Comp_Mu = $row['comp_mu']; // หมู่
-    $Comp_Road = $row['comp_road']; // ถนน
-    $Comp_Alley = $row['comp_alley']; // ซอย
-    $Comp_Sub_District = $row['comp_sub_district']; // ตำบล
-    $Comp_District = $row['comp_district']; // อำเภอ
-    $Comp_Province = $row['comp_province']; // จังหวัด
-    $Comp_Postcode = $row['comp_postcode']; // รหัสไปรษณีย์
+    $Comp_Name = $row['comp_name']; 
+    $Comp_HR_Name = $row['comp_hr_name']; 
+    $Comp_HR_Depart = $row['comp_hr_depart']; 
+    $Comp_Contact = $row['comp_contact']; 
+    $Comp_Tel = $row['comp_tel']; 
+    $Comp_Num_Add = $row['comp_num_add']; 
+    $Comp_Mu = $row['comp_mu']; 
+    $Comp_Road = $row['comp_road']; 
+    $Comp_Alley = $row['comp_alley']; 
+    $Comp_Sub_District = $row['comp_sub_district']; 
+    $Comp_District = $row['comp_district']; 
+    $Comp_Province = $row['comp_province']; 
+    $Comp_Postcode = $row['comp_postcode']; 
     $Comp_Img = $row['comp_img'];
-    $Username = $row['username']; // ชื่อผู้ใช้
-    $User_Type = $row['u_type']; // ประเภทผู้ใช้
+    $Username = $row['username']; 
+    $User_Type = $row['u_type'];
 
     // ดึงตัวอักษรตัวแรกของชื่อบริษัท
     $firstLetter = mb_substr($Comp_Name, 0, 1, "UTF-8");
+
+    // ตรวจสอบรูปโปรไฟล์บริษัท
+    if (!empty($Comp_Img) && file_exists($upload_dir . $Comp_Img)) {
+        $profile_image_path = $upload_dir . $Comp_Img;
+    } else {
+        $profile_image_path = "../Icon/default-profile.png";
+    }
 } else {
     die("No company data found.");
 }
@@ -66,7 +74,6 @@ if (mysqli_num_rows($result) > 0) {
     <script src="../script.js" defer></script>
 </head>
 <body>
-
     <div class="header">
         <div class="hamburger-menu">
             <div class="hamburger-icon" onclick="toggleMenu()">
@@ -75,11 +82,7 @@ if (mysqli_num_rows($result) > 0) {
             <div class="menu-sidebar" id="menuSidebar">
                 <a href="company_dashboard.php"><img src="../Icon/i1.png" alt="Home Icon"> หน้าหลัก</a>
                 <a href="company_profile.php"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
-<<<<<<< HEAD
                 <a href="Company_Intern.php"><img src="../Icon/i3.png" alt="Form Icon"> ใบสหกิจ</a>
-=======
-                <a href="Inter_from.php"><img src="../Icon/i3.png" alt="Form Icon"> ใบสหกิจ</a>
->>>>>>> 3c4cd843bca25ca2b11a6ad781d94a48bce07cbd
             </div>
         </div>
         <div class="logo-psu"><img src="../Icon/icon-psu.png" alt="PSU Logo"></div>
@@ -88,6 +91,7 @@ if (mysqli_num_rows($result) > 0) {
             <div class="profile-circle"><?= $firstLetter ?></div>
             <div class="dropdown">
                 <button class="dropbtn"><i class="fas fa-chevron-down"></i></button>
+
                 <div class="dropdown-content">
                     <a href="company_update.php"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
                     <a href="../logout.php"><img src="../Icon/i7.png" alt="Logout Icon">ออกจากระบบ</a>
@@ -102,14 +106,15 @@ if (mysqli_num_rows($result) > 0) {
             <a class="Y-button"><img src="../Icon/i8.png"> ข้อมูลส่วนตัว</a>
         </div>
         
-        <div class="in-container">
-            <div class="profile-card">
-                <div>
-                    <img src="Images-Profile-Company/<?= $Comp_Img ?>.jpg" alt="Profile">
-                </div>
-                
-                <div class="profile-info">
-                    <div>
+    <div class="in-container">
+        <div class="profile-card">
+            <div>        
+                 <img src="Images-Profile-Company<?= $Comp_Img ?>.jpg" alt="Profile">
+            </div>
+
+    <div class="profile-info">
+        
+    <div>
                         <h2><?= $Comp_Name ?></h2>
                         <a href="company_update.php" class="edit-link">แก้ไขข้อมูลส่วนตัว</a>
                     </div>
@@ -119,32 +124,24 @@ if (mysqli_num_rows($result) > 0) {
                     </div>
                 </div>
 
-            </div>
+</div>
 
             <div class="info-list">
-
-                <div class ="fix-text">
-                    <div><p>ชื่อบริษัท:</p></div>
-                    <div><p>ชื่อ-สกุล(HR):</p></div>
-                    <div><p>ตำแหน่ง:</p></div>
-                    <div><p>Email:</p></div>
-                    <div><p>โทรศัพท์:</p></div>
-                    <div><p>ที่อยู่:</p></div>
+                <div class="fix-text">
+                    <p>บริษัท:</p>
+                    <p>ชื่อ(HR):</p>
+                    <p>ตำแหน่ง:</p>
+                    <p>Email:</p>
+                    <p>โทรศัพท์:</p>
+                    <p>ที่อยู่:</p>
                 </div>
                 <div class="nonfix-text">
-                    <div><?= $Comp_Name ?></div>
-                    <div><p><?= $Comp_HR_Name ?></p></div>
-                    <div><p><?= $Comp_HR_Depart ?></p></div>
-                    <div><p><?= $Comp_Contact ?></p></div>
-                    <div><p><?= $Comp_Tel ?></p></div>
-                    <div><p><?= $Comp_Num_Add ?> 
-                        ม. <?= $Comp_Mu ?> 
-                        ถนน <?= $Comp_Road ?> 
-                        ซอย <?= $Comp_Alley ?> 
-                        ต.<?= $Comp_Sub_District ?> 
-                        อ.<?= $Comp_District ?> 
-                        จ.<?= $Comp_Province ?> 
-                        <?= $Comp_Postcode ?></p></div>
+                    <p><?= $Comp_Name ?></p>
+                    <p><?= $Comp_HR_Name ?></p>
+                    <p><?= $Comp_HR_Depart ?></p>
+                    <p><?= $Comp_Contact ?></p>
+                    <p><?= $Comp_Tel ?></p>
+                    <p><?= $Comp_Num_Add ?> ม.<?= $Comp_Mu ?> ถนน <?= $Comp_Road ?> ซอย <?= $Comp_Alley ?> ต.<?= $Comp_Sub_District ?> อ.<?= $Comp_District ?> จ.<?= $Comp_Province ?> <?= $Comp_Postcode ?></p>
                 </div>
             </div>
         </div>
