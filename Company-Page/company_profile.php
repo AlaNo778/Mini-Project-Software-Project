@@ -143,7 +143,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                     <p><?= htmlspecialchars($Comp_HR_Depart) ?></p>
                     <p><?= htmlspecialchars($Comp_Contact) ?></p>
                     <p><?= htmlspecialchars($Comp_Tel) ?></p>
-                    <p><?= htmlspecialchars($Comp_Num_Add) ?> ม.<?= htmlspecialchars($Comp_Mu) ?> ถนน <?= htmlspecialchars($Comp_Road) ?> ซอย <?= htmlspecialchars($Comp_Alley) ?> ต.<?= htmlspecialchars($Comp_Sub_District) ?> อ.<?= htmlspecialchars($Comp_District) ?> จ.<?= htmlspecialchars($Comp_Province) ?> <?= htmlspecialchars($Comp_Postcode) ?></p>
+                    <p><?= htmlspecialchars($Comp_Num_Add) ?> ม.<?= htmlspecialchars($Comp_Mu) ?> ถนน <?= htmlspecialchars($Comp_Road) ?>  <?= htmlspecialchars($Comp_Alley) ?> ต.<?= htmlspecialchars($Comp_Sub_District) ?> อ.<?= htmlspecialchars($Comp_District) ?> จ.<?= htmlspecialchars($Comp_Province) ?> <?= htmlspecialchars($Comp_Postcode) ?></p>
                 </div>
             </div>
         </div>
