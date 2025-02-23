@@ -301,9 +301,8 @@ body {
 
 
 .info-list .nonfix-text{
-    margin-left: 40px;
+    margin-left: 50px;
     text-align: left;
-    margin-bottom: auto;
 }
 
 .edit-link {
@@ -397,13 +396,12 @@ body {
 
 .info-edit input{
     width: 280px;
-    height: 20px;
-    margin-left: 80px;
+    height: 10px;
+    margin-left: 40px;
     padding: 8px;
-    margin-bottom: 3px;
+    margin-bottom: 1px;
     font-size: 18px;
-    margin-bottom: 2px;
-    margin-top: 10px;
+    margin-top: 19px;
     
     
     
