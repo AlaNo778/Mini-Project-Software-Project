@@ -63,7 +63,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     $Comp_District = "-";
     $Comp_Province = "-";
     $Comp_Postcode = "-";
-    $Comp_Img = "default.png"; // รูปภาพเริ่มต้นถ้าไม่มีข้อมูล
+    $Comp_Img = "-"; // รูปภาพเริ่มต้นถ้าไม่มีข้อมูล
     $firstLetter = "-";
 }
 ?>
@@ -113,7 +113,11 @@ if ($result && mysqli_num_rows($result) > 0) {
         <div class="in-container">
             <div class="profile-card">
                 <div>        
-                     <img src="Images-Profile-Company/<?= htmlspecialchars($Comp_Img) ?>" alt="Profile">
+                    <?php if ($Comp_Img != "-"): ?>
+                        <img src="Images-Profile-Company/<?= htmlspecialchars($Comp_Img) ?>" >
+                    <?php else: ?>
+                        <img src="Images-Profile-Company/8347452.png" >
+                    <?php endif; ?>
                 </div>
 
                 <div class="profile-info">

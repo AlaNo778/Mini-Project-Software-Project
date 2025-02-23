@@ -51,19 +51,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $comp_hr_depart = trim($_POST['comp_hr_depart']);
 
         // ตั้งค่าพาธสำหรับอัปโหลด
-        $upload_dir = "./Images-Profile-Company/";
+        $upload_dir = "./Images-Profile-company/";
 
         // ตรวจสอบการอัปโหลดไฟล์
         if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] == 0) {
             $file_tmp = $_FILES['profile_image']['tmp_name'];
-            $new_file_name = "profile-" . $row['username'] . ".jpg"; 
-            $new_file_path = $upload_dir . $new_file_name;
+            $file_name = $_FILES['profile_image']['name'];
+            $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
-            if (move_uploaded_file($file_tmp, $new_file_path)) {
-                $image_data = $new_file_name; // เก็บชื่อไฟล์ใหม่
+            // ตรวจสอบว่าเป็นไฟล์ .jpg เท่านั้น
+            if ($file_extension == 'jpg' || $file_extension == 'jpeg') {
+                $new_file_name = "profile-" . $row['username'] . ".jpg"; // ตั้งชื่อไฟล์ใหม่
+                $new_file_path = $upload_dir . $new_file_name;
+
+                // ย้ายไฟล์ที่อัปโหลดไปที่โฟลเดอร์ปลายทาง
+                if (move_uploaded_file($file_tmp, $new_file_path)) {
+                    $image_data = "profile-" . $row['username']; // เก็บชื่อไฟล์
+                } else {
+                    echo "<script>alert('อัปโหลดรูปภาพไม่สำเร็จ');</script>";
+                    $image_data = $row['comp_img']; // ใช้ไฟล์เดิม
+                }
             } else {
-                echo "<script>alert('อัปโหลดรูปภาพไม่สำเร็จ');</script>";
-                $image_data = $row['comp_img']; // ใช้ไฟล์เดิม
+                echo "<script>alert('โปรดเลือกไฟล์ .jpg หรือ .jpeg เท่านั้น');</script>";
+                $image_data = $row['comp_img']; // ใช้ไฟล์เดิมหากไฟล์ไม่ตรงตามเงื่อนไข
             }
         } else {
             $image_data = $row['comp_img']; // ใช้ไฟล์เดิมหากไม่มีการอัปโหลด
