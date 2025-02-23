@@ -69,6 +69,7 @@ if (mysqli_num_rows($result) > 0) {
                 <a href="profile_student.php"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
                 <a href="application_form.php"><img src="../Icon/i3.png" alt="Form Icon"> กรอกใบสมัคร</a>
                 <a href="status_student.php"><img src="../Icon/i4.png" alt="Status Icon"> สถานะ</a>
+                <a href="file_student.php"><img src="../Icon/i3.png" alt="Status Icon"> ไฟล์เอกสาร</a>
             </div>
         </div>
         <div class="logo-psu"><img src="../Icon/icon-psu.png" alt="PSU Logo"></div>
@@ -79,7 +80,7 @@ if (mysqli_num_rows($result) > 0) {
         
             <button class="dropbtn"><i class="fas fa-chevron-down"></i></button>
             <div class="dropdown-content">
-                <a href="edit_profile_student.php"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
+                <a href="setting_student.php"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
                 <a href="../logout.php"><img src="../Icon/i7.png" alt="Logout Icon">ออกจากระบบ</a>
             </div>
         </div>

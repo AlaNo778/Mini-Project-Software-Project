@@ -401,9 +401,6 @@ body {
     font-size: 18px;
     margin-bottom: 2px;
     margin-top: 10px;
-    
-    
-    
 }
 
 .edit-all-profile{
@@ -511,3 +508,693 @@ input[type="file"] {
 .button-group a {
     text-decoration: none;
 }
+
+.dropdown-list-major-branch{
+    width: 300px;
+    height: 40px;
+    margin-left: 80px;
+    padding: 8px;
+    font-size: 18px;
+    margin-bottom: 2px;
+    margin-top: 10px;
+}
+
+.container-form {
+    max-width:149vh;
+    height: auto;
+    margin-left: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    
+    
+    
+}
+.header-profile-form {
+    display: flex;
+    gap: 10px;
+    margin-left: 85px;
+    padding-bottom: 50px;
+    
+}
+.header-profile-form a {
+    border: 1px solid rgb(199, 199, 199);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    display: inline-block;
+    border-radius: 7px;
+    text-decoration: none;
+    color: black;
+}
+.header-profile2-form{
+    text-align: left;
+    margin-left: 85px;
+    font-size: 30px;
+    font-style: normal;
+}
+
+.header-profile-form .Y-button {
+    background-color: #FBDB48;
+}
+.sent-form{
+    display: flex;
+    flex-direction: column;
+    margin-left: 90px;
+}
+
+
+.form1{
+    display: flex;
+    max-height: 50px;
+    margin-bottom: 20px;
+}
+.form1 p{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+.form2 {
+    display: flex;  
+    align-items: center;
+    max-height: 50px;
+}
+.form2 p{
+    font-size: 25px;  
+    
+}
+.form2 input{
+    width: 200px;
+    height: 28px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+
+.form3 {
+    display: flex;
+    align-items: center;
+    max-height: 50px;
+}
+.form3 p{
+    font-size: 25px;  
+    
+}
+.form3 input{
+    width: 348px;
+    height: 28px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.form4 {
+    display: flex;
+    align-items: center;
+    max-height: 50px;
+}
+
+.form4 p{
+    font-size: 25px;  
+    
+}
+.form4 input{
+    height: 30px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+.form4 #input1{
+    width: 170px;  
+}
+.form4 #input2{
+    width: 352px;  
+}
+
+
+.form5 {
+    display: flex;
+    align-items: center;
+    max-height: 50px;
+}
+.form5 p{
+    font-size: 25px;  
+    
+}
+.form5 input{
+    width: 228px;
+    height: 30px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+
+.form6 {
+    display: flex;
+    align-items: center;
+    max-height: 50px;
+}
+.form6 p{
+    font-size: 25px;  
+    
+}
+.form6 input{
+    width: 323px;
+    height: 30px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+
+.form7 {
+    display: flex;
+    align-items: center;
+    max-height: 50px;
+}
+.form7 p{
+    font-size: 25px;  
+    
+}
+.form7 input{
+    width: 454px;
+    height: 30px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+
+.form8 {
+    display: flex;
+    align-items: center;
+    max-height: 50px;
+}
+.form8 p{
+    font-size: 25px;  
+    
+}
+.form8 input{
+    width: 335px;
+    height: 30px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.form9 {
+    display: flex;
+    align-items: center;
+    max-height: 50px;
+}
+.form9 p{
+    font-size: 25px;  
+    
+}
+.form9 select{
+    width: 626px;
+    height: 33px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+
+.form10 {
+    display: flex;
+    max-height: 50px;
+    margin-bottom: 20px;
+}
+.form10 p{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.form11 {
+    display: flex;
+    align-items: center;
+    max-height: 50px;
+}
+.form11 p{
+    font-size: 25px;  
+    
+}
+.form11 input{
+    height: 30px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+.form11 #input1{
+    margin-right: 2px;
+}
+.form11 #input5{
+    width: 30px;
+    margin-left: 5px;
+    margin-right: 3px;
+}
+.form11 img{
+    width: 13px;
+    height: 13px;
+    margin-right: 10px;
+    margin-top: -20px;
+    margin-bottom: 5px;
+    
+}
+#comp_name{
+    width: 308px;
+    height: 30px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+#company-search{
+    width: 308px;
+    height: 33px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.form12 {
+    display: flex;
+    max-height: 50px;
+    margin-bottom: 20px;
+}
+
+.form12 p{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.form13 {
+    display: flex;
+    align-items: center;
+    max-height: 50px;
+}
+.form13 p{
+    font-size: 25px;  
+    
+}
+.form13 input{
+    width: 150px;
+    height: 30px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+
+.form14 {
+    display: flex;
+    align-items: center;
+    max-height: 50px;
+}
+.form14 p{
+    font-size: 25px;  
+    
+}
+.form14 input{
+    width: 113px;
+    height: 30px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+
+.form15 {
+    display: flex;
+    align-items: center;
+    max-height: 50px;
+}
+.form15 p{
+    font-size: 25px;  
+    
+}
+.form15 input{
+    width: 736px;
+    height: 30px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.form16 {
+    display: flex;
+    align-items: center;
+    max-height: 50px;
+}
+.form16 p{
+    font-size: 25px;  
+    
+}
+.form16 input{
+    width: 201px;
+    height: 30px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+
+.form17 {
+    display: flex;
+    align-items: center;
+    max-height: 50px;
+}
+.form17 p{
+    font-size: 25px;  
+    
+}
+.form17 input{
+    width: 227px;
+    height: 30px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+
+.form18 {
+    margin-top: 10px;
+    display: flex;
+    max-height: 50px;
+    align-items: center;
+}
+.form18 p{
+    font-size: 25px;  
+    margin-right: 20px;
+    
+}
+.form18 label{
+    font-size: 20px;  
+    margin-right: 30px;
+    
+}
+
+.form19 {
+    display: flex;
+    max-height: 50px;
+    margin-bottom: 15px;
+}
+.form19 p{
+    font-size: 25px;  
+    
+}
+
+.form20 {
+    display: flex;
+    max-height: 50px;
+    align-items: center;
+}
+.form20 p{
+    font-size: 25px; 
+    margin-right: 20px; 
+    
+}
+.form20 label{
+    font-size: 20px; 
+    margin-right: 30px; 
+    
+    
+}
+.form21 {
+    display: flex;
+    max-height: 50px;
+    margin-bottom: 15px;
+}
+.form21 p{
+    font-size: 25px;  
+    
+}
+
+
+.form22 {
+    display: flex;
+    max-height: 50px;
+    align-items: center;
+}
+.form22 p{
+    font-size: 25px;  
+}
+.form22 label{
+    font-size: 20px;  
+    
+}
+
+.form23 {
+    display: flex;
+    max-height: 50px;
+    margin-bottom: 20px;
+    
+}
+.form23 p{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.form24 {
+    display: flex;
+    max-height: 60px;
+    margin-bottom: 20px;
+    
+    
+}
+.form24 p{
+    font-size: 25px;  
+    margin-right: 30px;
+}
+
+
+.form25 {
+    display: flex;
+    max-height: 60px;
+    margin-bottom: 50px;
+}
+.form25 p{
+    font-size: 25px; 
+    margin-right: 30px; 
+}
+.form28 {
+    display: flex;
+    max-height: 60px;
+    margin-bottom: 50px;
+}
+.form28 p{
+    font-size: 25px;  
+    margin-right: 30px;
+}
+
+.form26{
+    display: flex;
+    margin-left: 650px;
+    gap: 20px;
+    margin-bottom: 50px;
+}
+.form27 {
+    display: flex;  
+    align-items: center;
+    max-height: 50px;
+    
+}
+.form27 p{
+    font-size: 25px;  
+    
+}
+.form27 input{
+    width: 800px;
+    height: 32px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.form29 {
+    display: flex;  
+    align-items: center;
+    max-height: 50px;
+}
+.form29 p{
+    font-size: 25px;  
+    
+}
+.form29 input{
+    width: 312px;
+    height: 32px;  
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+
+/* ปรับสไตล์ของปุ่มเลือกไฟล์ */
+.custom-file-upload {
+    display: inline-block;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+    
+}
+
+.custom-file-upload input[type="file"] {
+    display: none; /* ซ่อน input file จริง */
+}
+
+/* ปรับให้ span อยู่ตรงกลาง */
+#application-file-name, #transcript-file-name, #resume-file-name {
+    display: flex;
+    align-items: center; /* จัดแนวตั้งให้กลาง */
+    justify-content: center; /* จัดแนวนอนให้กลาง */
+    margin-left: 15px;
+    font-size: 16px;
+    color: #555;
+    font-style: italic;
+    height: 40px;  /* เพิ่มความสูงเพื่อจัดแนวตั้ง */
+    margin-top: 22px;
+}
+
+/* เมื่อยังไม่ได้เลือกไฟล์ */
+#application-file-name.empty, #transcript-file-name.empty, #resume-file-name.empty {
+    color: #aaa;
+}
+
+.b-red-form{
+    background-color: #FF2D55;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding-left: 13px;
+    padding-right: 13px;
+    border: none;
+    border-radius: 6px;
+    width: 120px;
+    height: 50px;
+}
+.b-red-form a{
+    font-family: "Prompt", sans-serif;
+    font-size: 18px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    
+}
+
+.b-blue-form{
+    background-color: #233b6a;
+    color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    font-family: "Prompt", sans-serif;
+    font-size: 18px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: none;
+    border-radius: 6px;
+    width: 120px;
+    height: 50px;
+}
+
+.container-file{
+    max-width:151vh;
+    height: 88vh;
+    margin-left: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    
+    
+    
+}
+.header-profile-file {
+    display: flex;
+    gap: 10px;
+    margin-left: 85px;
+    padding-bottom: 50px;
+    
+}
+.header-profile-file a {
+    border: 1px solid rgb(199, 199, 199);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    display: inline-block;
+    border-radius: 7px;
+    text-decoration: none;
+    color: black;
+}
+.header-profile2-file{
+    text-align: left;
+    margin-left: 85px;
+    font-size: 30px;
+    font-style: normal;
+}
+
+.header-profile-file .Y-button {
+    background-color: #FBDB48;
+}
+
+.file-student {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* ระยะห่างระหว่างการ์ด */
+    margin-top: 20px;
+}
+
+.file-card {
+    background: white;
+    border: 4px solid #FBDB48;
+    border-radius: 10px;
+    box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    width: 250px;
+}
+
+.file-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.file-card a {
+    display: inline-block;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.file-card a:hover {
+    background: #0056b3;
+}
+
+
+
+
+
+
+

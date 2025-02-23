@@ -13,12 +13,10 @@ if ($_SESSION['u_type'] != 'Student') {
     exit();
 }
 
-
 $u_id = $_SESSION['u_id']; 
+
 $query_student = "SELECT 
-            s.std_id,s.std_fname, s.std_lname, s.std_tel, 
-            s.std_img, s.std_email_1, s.std_major, s.std_branch, 
-            u.u_type ,u.username 
+            s.*,u.username 
           FROM student s 
           JOIN users u ON s.u_id = u.u_id
           WHERE s.u_id = '$u_id'";
@@ -32,37 +30,28 @@ $query_professor = "SELECT
           WHERE pf_role = 'Coordinator'";
 $result_professor = mysqli_query($conn, $query_professor); 
 
+$Name = $row_student['std_fname'] . ' ' . $row_student['std_lname'];
+$firstLetter = mb_substr($row_student['std_fname'], 0, 1, "UTF-8");
+$std_id = (int)$row_student['std_id'];
 
 $query_company = "SELECT * FROM company";
 $result_company = mysqli_query($conn, $query_company); 
 
 
-
-$Name = $row_student['std_fname'] . ' ' . $row_student['std_lname'];
-$firstLetter = mb_substr($row_student['std_fname'], 0, 1, "UTF-8");
-$std_id = (int)$row_student['std_id'];
-
-$query_reg_id = "SELECT reg_id FROM registration WHERE std_id = '$std_id' ";
+$query_regis = "SELECT  * FROM registration 
+          WHERE std_id = '$std_id'";
  
-$result_reg_id = mysqli_query($conn, $query_reg_id); 
-$row_reg_id = mysqli_fetch_assoc($result_reg_id);
+$result_regis = mysqli_query($conn, $query_regis); 
+$row_regis = mysqli_fetch_assoc($result_regis);
 
-if (!empty($row_reg_id)){
-    header("Location: edit_application_form.php");    
-    exit();
-}else{
-    $editable = true;
-}
 $editable = false;
 
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $editable = true;
     if (isset($_POST['save'])) {
         $email2 = mysqli_real_escape_string($conn, $_POST['email-2'] ?? '');
         $facebook = mysqli_real_escape_string($conn, $_POST['std_facebook'] ?? '');
         $line = mysqli_real_escape_string($conn, $_POST['std_line'] ?? '');
-
         $gpax = mysqli_real_escape_string($conn, $_POST['std_gpax'] ?? '');
         $start = mysqli_real_escape_string($conn, $_POST['start'] ?? '');
         $date_start = date('Y-m-d', strtotime($start) ?? '');
@@ -112,18 +101,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
             $company_fax
         ]);
 
-
         $upload_dir_Application = "./../Registration-file/Application-file/";
         $upload_dir_Transcript = "./../Registration-file/Transcript-file/";
         $upload_dir_Resume = "./../Registration-file/Resume-file/";
-
+        // Check for file uploads
         if (
             empty($_FILES['application-form']['name']) ||
             empty($_FILES['transcript-form']['name']) ||
             empty($_FILES['resume-form']['name'])
         ) {
             echo "<script>alert('กรุณาอัปโหลดไฟล์ให้ครบทั้ง 3 ไฟล์');</script>";
-            echo "<meta http-equiv='refresh' content='0;url=application_form.php'>";
+            echo "<meta http-equiv='refresh' content='0;url=edit_application_form.php'>";
             exit();
         }
 
@@ -165,44 +153,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
                 echo "<script>alert('อัปโหลดไฟล์เรซูเม่ไม่สำเร็จ');</script>"; 
             }
         }
-            
-        /*echo "<pre>";
-        var_dump($job, $date_start, $date_end, $semester, $sub_semester, 
-                $file_transcript, $file_application, $file_resume, $gpax, 
-                $status, $reg_company_id, $std_id, $pf_id);
-        echo "</pre>";
-        exit(); */
 
-            $update_query1 = "UPDATE student SET std_facebook = ? , std_id_line = ? , std_email_2 = ? WHERE u_id =? " ;
-            if ($stmt1 = mysqli_prepare($conn, $update_query1)) {
-                mysqli_stmt_bind_param($stmt1, "sssi", $facebook, $line, $email2, $u_id);
-                mysqli_stmt_execute($stmt1);
-                mysqli_stmt_close($stmt1);
-            }
-            else{
-                echo "<script>alert('เกิดข้อผิดพลาดในการอัปเดตข้อมูล');</script>";  
-            }
+        $update_query1 = "UPDATE student SET std_facebook = ?, std_id_line = ?, std_email_2 = ? WHERE u_id = ?";
+        if ($stmt1 = mysqli_prepare($conn, $update_query1)) {
+            mysqli_stmt_bind_param($stmt1, "sssi", $facebook, $line, $email2, $u_id);
+            mysqli_stmt_execute($stmt1);
+            mysqli_stmt_close($stmt1);
+        } else {
+            echo "<script>alert('เกิดข้อผิดพลาดในการอัปเดตข้อมูล');</script>";  
+        }
 
-
-
-
-            if (!empty($_POST['checkbox-form']) && $_POST['checkbox-form'] == '1') {
+        // Registration logic
+        if (!empty($_POST['checkbox-form']) && $_POST['checkbox-form'] == '1') {
+            // Insert registration if checkbox is checked
             $update_query3 = "
-            INSERT INTO registration (
-            reg_job,
-            reg_start_date,
-            reg_end_date,
-            reg_semester,
-            reg_sub_intern,
-            reg_transcript,
-            reg_paper,
-            reg_resume,
-            reg_gpax,
-            reg_comment,
-            std_id,
-            pf_id
-            )
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+                INSERT INTO registration (
+                reg_job,
+                reg_start_date,
+                reg_end_date,
+                reg_semester,
+                reg_sub_intern,
+                reg_transcript,
+                reg_paper,
+                reg_resume,
+                reg_gpax,
+                reg_comment,
+                std_id,
+                pf_id
+                )
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
             if ($stmt3 = mysqli_prepare($conn, $update_query3)) {
                 mysqli_stmt_bind_param(
                     $stmt3,
@@ -226,66 +205,70 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
                 } else {
                     echo "<script>alert('เกิดข้อผิดพลาดในการอัปเดตข้อมูล');</script>";
                 }
-                    mysqli_stmt_close($stmt3);
-                } else {
-                    echo "<script>alert('ไม่สามารถเตรียมคำสั่ง SQL ได้');</script>";
-                }
-            
-
-
-         }
-        else{
-            $status = 01;
-            $update_query2 = "
-            INSERT INTO registration (
-            reg_job,
-            reg_start_date,
-            reg_end_date,
-            reg_semester,
-            reg_sub_intern,
-            reg_transcript,
-            reg_paper,
-            reg_resume,
-            reg_gpax,
-            reg_status,
-            comp_id,
-            std_id,
-            pf_id
-        ) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    if ($stmt2 = mysqli_prepare($conn, $update_query2)) {
-        mysqli_stmt_bind_param(
-            $stmt2,
-            "sssssssssiiii",
-            $job,
-            $date_start,
-            $date_end,
-            $semester,
-            $sub_semester,
-            $file_transcript,
-            $file_application,
-            $file_resume,
-            $gpax,
-            $status,
-            $reg_company_id,
-            $std_id,
-            $pf_id
-        );
-
-        if (mysqli_stmt_execute($stmt2)) {
-            echo "<script>alert('การอัปเดตข้อมูลสำเร็จ');</script>";
-            header("Location: student_dashboard.php");    
-            exit();
+                mysqli_stmt_close($stmt3);
+            } else {
+                echo "<script>alert('ไม่สามารถเตรียมคำสั่ง SQL ได้');</script>";
+            }
         } else {
-            echo "<script>alert('เกิดข้อผิดพลาดในการอัปเดตข้อมูล');</script>";
-        };
-            mysqli_stmt_close($stmt2);
-        };
-        } ;     
-    };
-};              
+            $company_new = null ;
+            $update_query2 = "
+                UPDATE registration 
+                SET 
+                    reg_job = ?, 
+                    reg_start_date = ?, 
+                    reg_end_date = ?, 
+                    reg_semester = ?, 
+                    reg_sub_intern = ?, 
+                    reg_transcript = ?, 
+                    reg_paper = ?, 
+                    reg_resume = ?, 
+                    reg_gpax = ?,
+                    reg_comment = ?, 
+                    reg_status = ?, 
+                    comp_id = ?, 
+                    pf_id = ?
+                WHERE std_id = '$std_id'";
+            
+            if ($stmt2 = mysqli_prepare($conn, $update_query2)) {
+                mysqli_stmt_bind_param(
+                    $stmt2,
+                    "ssssssssssiii", 
+                    $job,
+                    $date_start,
+                    $date_end,
+                    $semester,
+                    $sub_semester,
+                    $file_transcript,
+                    $file_application,
+                    $file_resume,
+                    $gpax,
+                    $company_new,
+                    $status,
+                    $reg_company_id,
+                    $pf_id
+                    
+                );
+                if (!$stmt2) {
+                    echo "Error: " . mysqli_error($conn);
+                }
+                if (mysqli_stmt_execute($stmt2)) {
+                    echo "<script>alert('การอัปเดตข้อมูลสำเร็จ');</script>";
+                    header("Location: student_dashboard.php");    
+                    exit();
+                } else {
+                    echo "<script>alert('เกิดข้อผิดพลาดในการอัปเดตข้อมูล');</script>";
+                };
+                mysqli_stmt_close($stmt2);
+                if (!$stmt2) {
+                    echo "Error: " . mysqli_error($conn);
+                }
+            }
+        }
+    }
+}
 ?>
+
+
 
 
 
@@ -334,7 +317,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
         </div>
     </div>
     <div class="container-form">
-            <div class="header-profile2-form"><p>กรอกใบสมัคร</p></div>
+            <div class="header-profile2-form"><p>แก้ไขใบสมัคร</p></div>
 
             <div class="header-profile-form"> 
                 <a href="student_dashboard.php">Home</a>
@@ -343,7 +326,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     
     <div>
                     
-                        <form method="POST" enctype="multipart/form-data" action="application_form.php">
+                        <form method="POST" enctype="multipart/form-data" action="edit_application_form.php">
                             <div class="sent-form">
                                 <div class="form1">
                                     <div><p>ข้อมูลส่วนตัวนักศึกษา :</p></div>
@@ -364,7 +347,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
                                 </div>
                                 <div class="form4">
                                     <p>ระดับคะแนนเฉลี่ย</p>
-                                    <input id="input1" type="text" name="std_gpax" require >
+                                    <input id="input1" type="text" name="std_gpax" value="<?= $row_regis['reg_gpax'] ?>" <?= $editable ? 'disabled' : '' ?> require >
                                     <p>เบอร์โทรศัพท์</p>
                                     <input id="input2" type="tel" name="phone" pattern="^0[689]\d{8}$" value="<?= $row_student['std_tel'] ?>" <?= !$editable ? 'disabled' : '' ?>  require >
                                 </div>
@@ -372,27 +355,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
                                     <p>Email @email.psu.ac.th</p>
                                     <input type="email" name="email-1" value="<?= $row_student['std_email_1'] ?>" <?= !$editable ? 'disabled' : '' ?> require >
                                     <p>Email อื่นๆ</p>
-                                    <input type="email" name="email-2" require>
+                                    <input type="email" name="email-2" value="<?= $row_student['std_email_2'] ?>" <?= $editable ? 'disabled' : '' ?> require>
                                 </div>
                                 <div class="form6">
                                     <p>Facebook</p>
-                                    <input id="input3" name="std_facebook" type="text" require>
+                                    <input id="input3" name="std_facebook" type="text" value="<?= $row_student['std_facebook'] ?>" <?= $editable ? 'disabled' : '' ?> require>
                                     <p>ID.Line</p>
-                                    <input id="input4" name="std_line" type="text" require>
+                                    <input id="input4" name="std_line" type="text" value="<?= $row_student['std_id_line'] ?>" <?= $editable ? 'disabled' : '' ?>  require>
                                 </div>
                                 <div class="form29">
                                     <p>วันที่เริ่มฝึก</p>
-                                    <input type="date" name="start" require>
+                                    <input type="date" name="start" value="<?= $row_regis['reg_start_date'] ?>" <?= $editable ? 'disabled' : '' ?> require>
                                     <p>วันที่สิ้นสุด</p>
-                                    <input type="date" name="end" require>
+                                    <input type="date" name="end" value="<?= $row_regis['reg_end_date'] ?>" <?= $editable ? 'disabled' : '' ?> require>
                                 </div>
                                 <div class="form7">
                                     <p>ภาคการศึกษาที่จะออกปฏิบัติสหกิจศึกษา</p>
-                                    <input type="text" name="semester" placeholder="1/2568" require>
+                                    <input type="text" name="semester" placeholder="1/2568" value="<?= $row_regis['reg_semester'] ?>" <?= $editable ? 'disabled' : '' ?> require>
                                 </div>
                                 <div class="form8">
                                     <p>ภาคการศึกษาที่ลงทะเบียนรายวิชาปฏิบัติสหกิจศึกษา</p>
-                                    <input type="text" name="sub_semester" placeholder="1/2568" require>
+                                    <input type="text" name="sub_semester" placeholder="1/2568" value="<?= $row_regis['reg_sub_intern'] ?>" <?= $editable ? 'disabled' : '' ?> require>
                                 </div>
                                 <div class="form9">
                                     <p>ชื่ออาจารย์ผู้ประสานงาน</p>
@@ -454,7 +437,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
                                 </div>
                                 <div class="form15">
                                     <p>ตำแหน่งงาน</p>
-                                    <input type="text" name="reg_job"  require>
+                                    <input type="text" name="reg_job"  value="<?= $row_regis['reg_job'] ?>" <?= $editable ? 'disabled' : '' ?> require>
                                 </div>
                                 <div class="form16">
                                     <p>ชื่อผู้ประสานงานสถานประกอบการ</p>
@@ -502,7 +485,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
                                 <div class="form24">
                                     <p>เอกสารแนบ 1. ใบสมัครเข้าร่วมปฏิบัติฝึกงาน *  :</p>
                                     <label class="custom-file-upload" id="application-upload-button">
-                                        <input type="file" name="application-form" id="application-form" <?= $editable ? 'disabled' : '' ?> required>
+                                        <input type="file" name="application-form" id="application-form" <?= $editable ? 'disabled' : '' ?> >
                                         เลือกไฟล์
                                     </label>
                                     <span id="application-file-name">ยังไม่ได้เลือกไฟล์</span> <!-- แสดงชื่อไฟล์ที่เลือก -->
@@ -511,7 +494,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
                                 <div class="form25">
                                     <p>เอกสารแนบ 2.ผลการเรียนของนักศึกษา *  :</p>
                                     <label class="custom-file-upload" id="transcript-upload-button">
-                                        <input type="file" name="transcript-form" id="transcript-form" <?= $editable ? 'disabled' : '' ?> required>
+                                        <input type="file" name="transcript-form" id="transcript-form" <?= $editable ? 'disabled' : '' ?> >
                                         เลือกไฟล์
                                     </label>
                                     <span id="transcript-file-name">ยังไม่ได้เลือกไฟล์</span> <!-- แสดงชื่อไฟล์ที่เลือก -->
@@ -520,7 +503,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
                                 <div class="form28">
                                     <p>เอกสารแนบ 3.เรซูเม่ *  :</p>
                                     <label class="custom-file-upload" id="resume-upload-button">
-                                        <input type="file" name="resume-form" id="resume-form" <?= $editable ? 'disabled' : '' ?> required>
+                                        <input type="file" name="resume-form" id="resume-form" <?= $editable ? 'disabled' : '' ?> >
                                         เลือกไฟล์
                                     </label>
                                     <span id="resume-file-name">ยังไม่ได้เลือกไฟล์</span> <!-- แสดงชื่อไฟล์ที่เลือก -->
@@ -529,11 +512,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
 
                                 <div class="form26">
                                     <?php if (!$editable): ?>
-                                        <button class="b-red-form"><a href="application_form.php" class="cancel-button">ยกเลิก</a></button>
+                                        <button class="b-red-form"><a href="student_dashboard.php" class="cancel-button">ยกเลิก</a></button>
                                         <button class="b-blue-form" type="submit" name="save">บันทึก</button>
                                     <?php else: ?>
-                                        <button class="b-red"><a href="edit_profile_student.php" class="cancel-button">ยกเลิก</a></button>
-                                        <button class="b-blue" type="submit" name="edit">แก้ไข</button>
+                                        <button class="b-red-form"><a href="edit_application_form.php" class="cancel-button">ยกเลิก</a></button>
+                                        <button class="b-blue-form" type="submit" name="save">บันทึก</button>
                                     <?php endif; ?>
                                 </div>
                             </div>

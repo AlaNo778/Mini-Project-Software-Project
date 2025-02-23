@@ -116,6 +116,7 @@ $firstLetter = mb_substr($row['std_fname'], 0, 1, "UTF-8");
                 <a href="profile_student.php"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
                 <a href="application_form.php"><img src="../Icon/i3.png" alt="Form Icon"> กรอกใบสมัคร</a>
                 <a href="status_student.php"><img src="../Icon/i4.png" alt="Status Icon"> สถานะ</a>
+                <a href="file_student.php"><img src="../Icon/i3.png" alt="Status Icon"> ไฟล์เอกสาร</a>
             </div>
         </div>
         <div class="logo-psu"><img src="../Icon/icon-psu.png" alt="PSU Logo"></div>
@@ -126,7 +127,7 @@ $firstLetter = mb_substr($row['std_fname'], 0, 1, "UTF-8");
         
             <button class="dropbtn"><i class="fas fa-chevron-down"></i></button>
             <div class="dropdown-content">
-                <a href="edit_profile_student.php"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
+                <a href="setting_student.php"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
                 <a href="../logout.php"><img src="../Icon/i7.png" alt="Logout Icon">ออกจากระบบ</a>
             </div>
         </div>
@@ -161,8 +162,30 @@ $firstLetter = mb_substr($row['std_fname'], 0, 1, "UTF-8");
                                     <input type="text" name="std_fname" value="<?= $row['std_fname'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
                                     <input type="text" name="std_lname" value="<?= $row['std_lname'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
                                     <input type="text" value="<?= $row['username'] ?>" disabled>
-                                    <input type="text" name="std_branch"value="<?= $row['std_branch'] ?>"<?= !$editable ? 'disabled' : '' ?> required >
-                                    <input type="text" name="std_major"value="<?= $row['std_major'] ?>"<?= !$editable ? 'disabled' : '' ?> required >
+                                        <!-- Dropdown สำหรับ Branch -->
+                                    <select class ="dropdown-list-major-branch" name="std_branch" <?= !$editable ? 'disabled' : '' ?> required>
+                                        <?php 
+                                        $branches = ['วิทยาศาสตร์กายภาพ', 'วิทยาศาสตร์ชีวภาพ', 'วิทยาศาสตร์การคำนวณ', 'วิทยาศาสตร์สุขภาพเเละวิทยาศาสตร์ประยุกต์'];
+                                        foreach ($branches as $branch) {
+                                            $selected = ($row['std_branch'] == $branch) ? 'selected' : '';
+                                            echo "<option value='$branch' $selected>$branch</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                    <select class ="dropdown-list-major-branch" name="std_major" <?= !$editable ? 'disabled' : '' ?> required>
+                                        <?php 
+                                        $majors = ['เคมี', 'ฟิสิกส์', 'วัสดุศาสตร์', 'วิทยาศาสตร์พอลิเมอร์', 
+                                                'วิทยาศาสตร์และเทคโนโลยีพอลิเมอร์', 'ชีววิทยา', 'จุลชีววิทยา', 
+                                                'เทคโนโลยีชีวภาพ', 'เทคโนโลยีชีวภาพโมเลกุลและชีวสารสนเทศ', 
+                                                'คณิตศาสตร์', 'สถิติ', 'วิทยาการคอมพิวเตอร์', 
+                                                'เทคโนโลยีสารสนเทศและการสื่อสาร', 'เทคโนโลยีสารสนเทศ', 
+                                                'เคมี-ชีววิทยาประยุกต์'];
+                                        foreach ($majors as $major) {
+                                            $selected = ($row['std_major'] == $major) ? 'selected' : '';
+                                            echo "<option value='$major' $selected>$major</option>";
+                                        }
+                                        ?>
+                                    </select>
                                     <input type="text" name="u_type"value="<?= $row['u_type'] ?>" disabled >
                                     <input type="email" name="std_email_1" value="<?= $row['std_email_1'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
                                     <input type="text"  name="std_tel" value="<?= $row['std_tel'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
