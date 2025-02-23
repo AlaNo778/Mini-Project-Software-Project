@@ -89,7 +89,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>แก้ไขข้อมูลบริษัท</title>
     <link rel="stylesheet" href="../style/style-company.css">
-    <script src="../script.js" defer></script>
+    <script>
+        function enableEdit() {
+            let inputs = document.querySelectorAll('.info-edit input');
+            inputs.forEach(input => input.removeAttribute('readonly'));
+
+            document.getElementById("editBtn").style.display = "none";
+            document.getElementById("saveBtn").style.display = "inline-block";
+            document.getElementById("cancelBtn").style.display = "inline-block";
+        }
+
+        function disableEdit() {
+            let inputs = document.querySelectorAll('.info-edit input');
+            inputs.forEach(input => input.setAttribute('readonly', true));
+
+            document.getElementById("editBtn").style.display = "inline-block";
+            document.getElementById("saveBtn").style.display = "none";
+            document.getElementById("cancelBtn").style.display = "none";
+        }
+
+        window.onload = function () {
+            disableEdit(); // ทำให้ทุกช่องอ่านได้อย่างเดียวตอนเริ่ม
+        };
+    </script>
 </head>
 <body>
     <div class="header">
