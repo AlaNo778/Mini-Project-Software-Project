@@ -1,14 +1,13 @@
-<?php
+<?php 
 session_start();
-include '../config.php';  // ปรับให้แน่ใจว่า path ถูกต้อง
+include '../config.php';
 
-// ตรวจสอบว่าผู้ใช้เข้าสู่ระบบหรือไม่
 if (!isset($_SESSION['u_type'])) {
     header("Location: ../index.php");
     exit();
 }
 
-// ตรวจสอบสิทธิ์ผู้ใช้ (ต้องเป็น Company เท่านั้น)
+// ตรวจสอบสิทธิ์ผู้ใช้
 if ($_SESSION['u_type'] != 'Company') {
     header("Location: ../unauthorized.php");
     exit();
@@ -27,10 +26,8 @@ $query = "SELECT
 
 $result = mysqli_query($conn, $query); // ดำเนินการคำสั่ง SQL
 
-$upload_dir = "Images-Profile-Company/";
-
 // ตรวจสอบว่ามีข้อมูลหรือไม่
-if (mysqli_num_rows($result) > 0) {
+if ($result && mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $Comp_Name = $row['comp_name']; 
     $Comp_HR_Name = $row['comp_hr_name']; 
@@ -51,15 +48,23 @@ if (mysqli_num_rows($result) > 0) {
 
     // ดึงตัวอักษรตัวแรกของชื่อบริษัท
     $firstLetter = mb_substr($Comp_Name, 0, 1, "UTF-8");
-
-    // ตรวจสอบรูปโปรไฟล์บริษัท
-    if (!empty($Comp_Img) && file_exists($upload_dir . $Comp_Img)) {
-        $profile_image_path = $upload_dir . $Comp_Img;
-    } else {
-        $profile_image_path = "../Icon/default-profile.png";
-    }
 } else {
-    die("No company data found.");
+    // ถ้าไม่มีข้อมูลบริษัท
+    $Comp_Name = "ไม่พบข้อมูล";
+    $Comp_HR_Name = "-";
+    $Comp_HR_Depart = "-";
+    $Comp_Contact = "-";
+    $Comp_Tel = "-";
+    $Comp_Num_Add = "-";
+    $Comp_Mu = "-";
+    $Comp_Road = "-";
+    $Comp_Alley = "-";
+    $Comp_Sub_District = "-";
+    $Comp_District = "-";
+    $Comp_Province = "-";
+    $Comp_Postcode = "-";
+    $Comp_Img = "default.png"; // รูปภาพเริ่มต้นถ้าไม่มีข้อมูล
+    $firstLetter = "-";
 }
 ?>
 
@@ -87,14 +92,13 @@ if (mysqli_num_rows($result) > 0) {
         </div>
         <div class="logo-psu"><img src="../Icon/icon-psu.png" alt="PSU Logo"></div>
         <div class="bar-user">
-            <div class="user"><?= $Comp_Name ?></div>
-            <div class="profile-circle"><?= $firstLetter ?></div>
+            <div class="user"><?= htmlspecialchars($Comp_Name) ?></div>
+            <div class="profile-circle"><?= htmlspecialchars($firstLetter) ?></div>
             <div class="dropdown">
                 <button class="dropbtn"><i class="fas fa-chevron-down"></i></button>
-
                 <div class="dropdown-content">
-                    <a href="company_update.php"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
-                    <a href="../logout.php"><img src="../Icon/i7.png" alt="Logout Icon">ออกจากระบบ</a>
+                    <a href="company_update.php"><img src="../Icon/i6.png" alt="EditProfile Icon"> จัดการบัญชี</a>
+                    <a href="../logout.php"><img src="../Icon/i7.png" alt="Logout Icon"> ออกจากระบบ</a>
                 </div>
             </div>
         </div>
@@ -106,25 +110,23 @@ if (mysqli_num_rows($result) > 0) {
             <a class="Y-button"><img src="../Icon/i8.png"> ข้อมูลส่วนตัว</a>
         </div>
         
-    <div class="in-container">
-        <div class="profile-card">
-            <div>        
-                 <img src="Images-Profile-Company<?= $Comp_Img ?>.jpg" alt="Profile">
-            </div>
+        <div class="in-container">
+            <div class="profile-card">
+                <div>        
+                     <img src="Images-Profile-Company/<?= htmlspecialchars($Comp_Img) ?>" alt="Profile">
+                </div>
 
-    <div class="profile-info">
-        
-    <div>
-                        <h2><?= $Comp_Name ?></h2>
+                <div class="profile-info">
+                    <div>
+                        <h2><?= htmlspecialchars($Comp_Name) ?></h2>
                         <a href="company_update.php" class="edit-link">แก้ไขข้อมูลส่วนตัว</a>
                     </div>
                     <div class="in-info">
                         <p>Email address</p>
-                        <p><?= $Comp_Contact ?></p>
+                        <p><?= htmlspecialchars($Comp_Contact) ?></p>
                     </div>
                 </div>
-
-</div>
+            </div>
 
             <div class="info-list">
                 <div class="fix-text">
@@ -135,13 +137,13 @@ if (mysqli_num_rows($result) > 0) {
                     <p>โทรศัพท์:</p>
                     <p>ที่อยู่:</p>
                 </div>
-                <div class="nonfix-text">
-                    <p><?= $Comp_Name ?></p>
-                    <p><?= $Comp_HR_Name ?></p>
-                    <p><?= $Comp_HR_Depart ?></p>
-                    <p><?= $Comp_Contact ?></p>
-                    <p><?= $Comp_Tel ?></p>
-                    <p><?= $Comp_Num_Add ?> ม.<?= $Comp_Mu ?> ถนน <?= $Comp_Road ?> ซอย <?= $Comp_Alley ?> ต.<?= $Comp_Sub_District ?> อ.<?= $Comp_District ?> จ.<?= $Comp_Province ?> <?= $Comp_Postcode ?></p>
+                <div class="fix-text">
+                    <p><?= htmlspecialchars($Comp_Name) ?></p>
+                    <p><?= htmlspecialchars($Comp_HR_Name) ?></p>
+                    <p><?= htmlspecialchars($Comp_HR_Depart) ?></p>
+                    <p><?= htmlspecialchars($Comp_Contact) ?></p>
+                    <p><?= htmlspecialchars($Comp_Tel) ?></p>
+                    <p><?= htmlspecialchars($Comp_Num_Add) ?> ม.<?= htmlspecialchars($Comp_Mu) ?> ถนน <?= htmlspecialchars($Comp_Road) ?> ซอย <?= htmlspecialchars($Comp_Alley) ?> ต.<?= htmlspecialchars($Comp_Sub_District) ?> อ.<?= htmlspecialchars($Comp_District) ?> จ.<?= htmlspecialchars($Comp_Province) ?> <?= htmlspecialchars($Comp_Postcode) ?></p>
                 </div>
             </div>
         </div>
