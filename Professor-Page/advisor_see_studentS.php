@@ -6,13 +6,13 @@ if (!isset($_SESSION['u_type'])) {
     exit();
 }
 // ตรวจสอบสิทธิ์ผู้ใช้
-if ($_SESSION['u_type'] != 'Student') {
+if ($_SESSION['u_type'] != 'Professor') {
     header("Location: ..\unauthorized.php");
     exit();
 }
 
 $u_id = $_SESSION['u_id']; // รับค่าจาก session ที่เก็บ user_id
-$query = "SELECT std_id,std_fname, std_lname FROM student WHERE u_id = '$u_id'";
+$query = "SELECT pf_fname, pf_lname FROM professor WHERE u_id = '$u_id'";
 
 $result = mysqli_query($conn, $query); // ดำเนินการคำสั่ง SQL
 
@@ -20,29 +20,9 @@ $result = mysqli_query($conn, $query); // ดำเนินการคำส�
 if (mysqli_num_rows($result) > 0) {
     // ดึงข้อมูลมาเก็บในตัวแปร
     $row = mysqli_fetch_assoc($result);
-    $std_id =$row['std_id'];
-    $Name = $row['std_fname'] . ' ' . $row['std_lname']; // รวมชื่อและนามสกุล
-    $firstLetter = mb_substr($row['std_fname'], 0, 1, "UTF-8");
+    $Name = $row['pf_fname'] . ' ' . $row['pf_lname']; // รวมชื่อและนามสกุล
+    $firstLetter = mb_substr($row['pf_fname'], 0, 1, "UTF-8");
 }
-
-$query_reg_id = "SELECT r.reg_id ,r.reg_comment ,d.doc_regis_approve,d.doc_sent_approve  FROM registration r JOIN document d ON r.doc_id = d.doc_id WHERE r.std_id = '$std_id' ";
- 
-$result_reg_id = mysqli_query($conn, $query_reg_id); 
-$row_reg_id = mysqli_fetch_assoc($result_reg_id);
-$row_id = $row_reg_id['reg_id'];
-$row_reg_comment = $row_reg_id['reg_comment'];
-$row_doc_regis = $row_reg_id['doc_regis_approve'];
-$row_doc_sent = $row_reg_id['doc_sent_approve'];
-
-
-
-
-
-if ((empty($row_reg_id) || $row_reg_comment != Null )){
-    header("Location: student_dashboard.php");    
-    exit();
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -66,11 +46,9 @@ if ((empty($row_reg_id) || $row_reg_comment != Null )){
                 <img src="../Icon/i5.png" alt="Menu Icon">
             </div>
             <div class="menu-sidebar" id="menuSidebar">
-                <a href="student_dashboard.php"><img src="../Icon/i1.png" alt="Home Icon"> หน้าหลัก</a>
-                <a href="profile_student.php"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
-                <a href="application_form.php"><img src="../Icon/i3.png" alt="Form Icon"> กรอกใบสมัคร</a>
-                <a href="status_student.php"><img src="../Icon/i4.png" alt="Status Icon"> สถานะ</a>
-                
+                <a href="advisor_dashboard.php"><img src="../Icon/i1.png" alt="Home Icon"> หน้าหลัก</a>
+                <a href="#"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
+                <a href="#"><img src="../Icon/i3.png" alt="student Icon"> ข้อมูลนักศึกษา</a>
             </div>
         </div>
         <div class="logo-psu"><img src="../Icon/icon-psu.png" alt="PSU Logo"></div>
@@ -81,7 +59,7 @@ if ((empty($row_reg_id) || $row_reg_comment != Null )){
 
                 <button class="dropbtn"><i class="fas fa-chevron-down"></i></button>
                 <div class="dropdown-content">
-                    <a href="setting_student.php"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
+                    <a href="advisor_manage_user.php"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
                     <a href="../logout.php"><img src="../Icon/i7.png" alt="Logout Icon">ออกจากระบบ</a>
                 </div>
             </div>
@@ -92,7 +70,10 @@ if ((empty($row_reg_id) || $row_reg_comment != Null )){
         <h2>ข้อมูลนักศึกษา</h2>
         <nav aria-label="breadcrumb">
             <div class="btn-group btn-group-sm" role="group" aria-label="page">
-                <a class="btn btn-outline-secondary" href="student_dashboard.php">หน้าหลัก</a>
+                <a class="btn btn-outline-secondary" href="advisor_dashboard.php">หน้าหลัก</a>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="page">
+                <a class="btn btn-outline-secondary" href="advisor_see_student.php">รายชื่อนักศึกษา</a>
             </div>
             <div class="btn-group btn-group-sm" role="group" aria-label="page">
                 <a class="btn btn-warning" href="#">ข้อมูลนักศึกษา</a> 
@@ -110,12 +91,12 @@ if ((empty($row_reg_id) || $row_reg_comment != Null )){
 
             <!-- วงกลมในแต่ละขั้นตอน -->
             <?php
-        
+        $id = $_GET['std_id'];
         $sql = "
                 SELECT s.*,r.reg_status
                 FROM student AS s
                 JOIN registration AS r ON s.std_id = r.std_id
-                WHERE s.std_id = '$std_id' ";
+                WHERE s.std_id = '$id' ";
 
         $results = mysqli_query($conn, $sql);
         $row = mysqli_fetch_array($results);
@@ -177,14 +158,14 @@ if ((empty($row_reg_id) || $row_reg_comment != Null )){
         <br>
 
         <?php
-        
+        $id = $_GET['std_id'];
         $sql = "
                 SELECT s.*, u.username, r.*, c.*
                 FROM student AS s
                 JOIN users AS u ON s.u_id = u.u_id
                 JOIN registration AS r ON s.std_id = r.std_id
                 JOIN company AS c ON r.comp_id = c.comp_id
-                WHERE s.std_id = '$std_id' ";
+                WHERE s.std_id = '$id' ";
         $results = mysqli_query($conn, $sql);
         $row = mysqli_fetch_array($results);
 
@@ -220,7 +201,6 @@ if ((empty($row_reg_id) || $row_reg_comment != Null )){
                     <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab" aria-controls="nav-home" aria-selected="true">ข้อมูลส่วนตัว</button>
                     <button class="nav-link" id="comp-tab" data-bs-toggle="tab" data-bs-target="#nav-comp" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">ข้อมูลสถานประกอบการ</button>
                     <button class="nav-link" id="file-tab" data-bs-toggle="tab" data-bs-target="#nav-file" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">เอกสารที่อัปโหลด</button>
-                    <button class="nav-link" id="file-tab-sent" data-bs-toggle="tab" data-bs-target="#nav-file-sent" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">หนังสือขอความอนุเคราะห์และหนังสือส่งตัว</button>
                 </div>
             </nav>
             <div class="card">
@@ -286,30 +266,6 @@ if ((empty($row_reg_id) || $row_reg_comment != Null )){
                                     <a href="../File/File_resume/<?= $row['reg_resume'] ?>" target="_blank" class="btn btn-outline-primary">
                                         <i class="fas fa-file-pdf"></i>เรซูเม่ (<?= htmlspecialchars($row["username"]) ?>)</a><br>
                                 <?php else: ?> -<?php endif; ?>   
-
-                <br>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="nav-file-sent" role="tabpanel" aria-labelledby="nav-file-sent" tabindex="0">
-                        <div class="card-body">
-                        <p><strong>หนังสือขอความอนุเคราะห์:</strong>
-                                <?php if (!empty($row['reg_paper'])): ?>
-                                    <a href="./../File/File_regis_ap/<?= $row_doc_regis ?>" target="_blank" class="btn btn-outline-primary">
-                                        <i class="fas fa-file-pdf"></i> หนังสือขอความอนุเคราะห์ (<?= htmlspecialchars($row["username"]) ?>)</a>
-                                <?php else: ?>
-                                    <a class=" btn btn-outline-danger disabled">
-                                        <i class="fas fa-file-pdf"></i> หนังสือขอความอนุเคราะห์ (<?= htmlspecialchars($row["username"]) ?>)
-                                    </a>
-                                <?php endif; ?>
-                            <p><strong>หนังสือส่งตัว:</strong>
-                                <?php if (!empty($row['reg_transcript'])): ?>
-                                    <a href="./../File/File_sent_ap/<?= $row_doc_sent ?>" target="_blank" class="btn btn-outline-primary">
-                                        <i class="fas fa-file-pdf"></i> หนังสือส่งตัว: (<?= htmlspecialchars($row["username"]) ?>)</a>
-                                <?php else: ?>
-                                    <a class=" btn btn-outline-danger disabled">
-                                        <i class="fas fa-file-pdf"></i> หนังสือส่งตัว: (<?= htmlspecialchars($row["username"]) ?>)
-                                    </a>
-                                <?php endif; ?>
 
                 <br>
                         </div>

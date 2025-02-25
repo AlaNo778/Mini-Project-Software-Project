@@ -116,7 +116,7 @@ $firstLetter = mb_substr($row['std_fname'], 0, 1, "UTF-8");
                 <a href="profile_student.php"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
                 <a href="application_form.php"><img src="../Icon/i3.png" alt="Form Icon"> กรอกใบสมัคร</a>
                 <a href="status_student.php"><img src="../Icon/i4.png" alt="Status Icon"> สถานะ</a>
-                <a href="file_student.php"><img src="../Icon/i3.png" alt="Status Icon"> ไฟล์เอกสาร</a>
+                
             </div>
         </div>
         <div class="logo-psu"><img src="../Icon/icon-psu.png" alt="PSU Logo"></div>

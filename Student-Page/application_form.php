@@ -113,9 +113,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
         ]);
 
 
-        $upload_dir_Application = "./../Registration-file/Application-file/";
-        $upload_dir_Transcript = "./../Registration-file/Transcript-file/";
-        $upload_dir_Resume = "./../Registration-file/Resume-file/";
+        $upload_dir_Application = "./../File/File_paper/";
+        $upload_dir_Transcript = "./../File/File_transcipt/";
+        $upload_dir_Resume = "./../File/File_resume/";
 
         if (
             empty($_FILES['application-form']['name']) ||
@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
         if (isset($_FILES['application-form']) && $_FILES['application-form']['error'] == 0) {
             $file_tmp1 = $_FILES['application-form']['tmp_name'];
             $file_ext1 = pathinfo($_FILES['application-form']['name'], PATHINFO_EXTENSION); // ดึงนามสกุลไฟล์
-            $new_file_name1 = "application -" . $row_student['username'] . "." . $file_ext1; // ตั้งชื่อไฟล์ใหม่
+            $new_file_name1 = "application-" . $row_student['username'] . "." . $file_ext1; // ตั้งชื่อไฟล์ใหม่
             $new_file_path1 = $upload_dir_Application . $new_file_name1;
         
             if (move_uploaded_file($file_tmp1, $new_file_path1)) {
@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
         if (isset($_FILES['transcript-form']) && $_FILES['transcript-form']['error'] == 0) {
             $file_tmp2 = $_FILES['transcript-form']['tmp_name'];
             $file_ext2 = pathinfo($_FILES['transcript-form']['name'], PATHINFO_EXTENSION); // ดึงนามสกุลไฟล์
-            $new_file_name2 = "transcript -" . $row_student['username'] . "." . $file_ext2; // ตั้งชื่อไฟล์ใหม่
+            $new_file_name2 = "transcript-" . $row_student['username'] . "." . $file_ext2; // ตั้งชื่อไฟล์ใหม่
             $new_file_path2 = $upload_dir_Transcript . $new_file_name2;
         
             if (move_uploaded_file($file_tmp2, $new_file_path2)) {
@@ -156,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
         if (isset($_FILES['resume-form']) && $_FILES['resume-form']['error'] == 0) {
             $file_tmp3 = $_FILES['resume-form']['tmp_name'];
             $file_ext3 = pathinfo($_FILES['resume-form']['name'], PATHINFO_EXTENSION); // ดึงนามสกุลไฟล์
-            $new_file_name3 = "resume -" . $row_student['username'] . "." . $file_ext3; // ตั้งชื่อไฟล์ใหม่
+            $new_file_name3 = "resume-" . $row_student['username'] . "." . $file_ext3; // ตั้งชื่อไฟล์ใหม่
             $new_file_path3 = $upload_dir_Resume . $new_file_name3;
         
             if (move_uploaded_file($file_tmp3, $new_file_path3)) {
@@ -316,7 +316,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
                 <a href="profile_student.php"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
                 <a href="application_form.php"><img src="../Icon/i3.png" alt="Form Icon"> กรอกใบสมัคร</a>
                 <a href="status_student.php"><img src="../Icon/i4.png" alt="Status Icon"> สถานะ</a>
-                <a href="file_student.php"><img src="../Icon/i3.png" alt="Status Icon"> ไฟล์เอกสาร</a>
+                
             </div>
         </div>
         <div class="logo-psu"><img src="../Icon/icon-psu.png" alt="PSU Logo"></div>

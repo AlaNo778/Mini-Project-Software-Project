@@ -35,9 +35,9 @@ if (mysqli_num_rows($result) > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professor Dashboard</title>
+    <title>Coordinator Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../style/style-professor.css">
+    <link rel="stylesheet" href="../style/style-coordinator.css">
     <script src="../script.js" defer></script>
 </head>
 <body>
@@ -49,8 +49,10 @@ if (mysqli_num_rows($result) > 0) {
             </div> 
             <div class="menu-sidebar" id="menuSidebar">
                 <a href="#"><img src="../Icon/i1.png" alt="Home Icon"> หน้าหลัก</a>
-                <a href="#"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
-                <a href="#"><img src="../Icon/i3.png" alt="student Icon"> ข้อมูลนักศึกษา</a>
+                <a href="coordinator_profile.php"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
+                <a href="coordinator_see_student.php"><img src="../Icon/co1.png" alt="student Icon"> ข้อมูลนักศึกษา</a>
+                <a href="coordinator_regis.php"><img src="../Icon/co2.png" alt="Profile Icon"> ใบสมัครสหกิจ</a>
+                <a href="coordinator_assign_advisor.php"><img src="../Icon/co3.png" alt="student Icon"> กำหนดอาจารย์ที่ปรึกษา</a>
             </div>
         </div>
         <div class="logo-psu"><img src="../Icon/icon-psu.png" alt="PSU Logo"></div>
@@ -61,7 +63,7 @@ if (mysqli_num_rows($result) > 0) {
         
             <button class="dropbtn"><i class="fas fa-chevron-down"></i></button>
             <div class="dropdown-content">
-                <a href="#"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
+                <a href="professor_manage_user.php"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
                 <a href="../logout.php"><img src="../Icon/i7.png" alt="Logout Icon">ออกจากระบบ</a>
             </div>
         </div>
@@ -69,14 +71,21 @@ if (mysqli_num_rows($result) > 0) {
     </div>
     <div class="menu">
         <div class="menu-item">
-            <img src="..\Icon\icon-profile.png" alt="ข้อมูลส่วนตัว">
+            <a href="coordinator_profile.php"><img src="..\Icon\icon-profile.png" alt="ข้อมูลส่วนตัว"></a>
             <p>ข้อมูลส่วนตัว</p>
         </div>
         <div class="menu-item">
-            <img src="..\Icon\info_student.png" alt="ข้อมุลนักศึกษา">
+            <a href="coordinator_see_student.php"><img src="..\Icon\info_student.png" alt="ข้อมูลนักศึกษา"></a>
             <p>ข้อมูลนักศึกษา</p>
         </div>
-        
+        <div class="menu-item">
+            <a href="coordinator_regis.php"><img src="..\Icon\regis.png" alt="ใบสมัครสหกิจ"></a>
+            <p>ใบสมัครสหกิจ</p>
+        </div>
+        <div class="menu-item">
+            <a href="coordinator_assign_advisor.php"><img src="..\Icon\define.png" alt="กำหนดอาจารย์ที่ปรึกษา"></a>
+            <p>กำหนดอาจารย์ที่ปรึกษา</p>
+        </div>
     </div>
 </body>
 </html>

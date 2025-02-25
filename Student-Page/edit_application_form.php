@@ -101,9 +101,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $company_fax
         ]);
 
-        $upload_dir_Application = "./../Registration-file/Application-file/";
-        $upload_dir_Transcript = "./../Registration-file/Transcript-file/";
-        $upload_dir_Resume = "./../Registration-file/Resume-file/";
+        $upload_dir_Application = "./../File/File_paper/";
+        $upload_dir_Transcript = "./../File/File_transcipt/";
+        $upload_dir_Resume = "./../File/File_resume/";
         // Check for file uploads
         if (
             empty($_FILES['application-form']['name']) ||
@@ -299,7 +299,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a href="profile_student.php"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
                 <a href="application_form.php"><img src="../Icon/i3.png" alt="Form Icon"> กรอกใบสมัคร</a>
                 <a href="status_student.php"><img src="../Icon/i4.png" alt="Status Icon"> สถานะ</a>
-                <a href="file_student.php"><img src="../Icon/i3.png" alt="Status Icon"> ไฟล์เอกสาร</a>
+                
             </div>
         </div>
         <div class="logo-psu"><img src="../Icon/icon-psu.png" alt="PSU Logo"></div>

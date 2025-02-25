@@ -9,7 +9,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $password = mysqli_real_escape_string($conn, $_POST['password']);
 
     // เตรียมคำสั่ง SQL เพื่อตรวจสอบชื่อผู้ใช้
-    $sql = "SELECT * FROM users WHERE username = ?";
+    $sql = "SELECT users.*, professor.pf_role 
+            FROM users 
+            LEFT JOIN professor ON users.u_id = professor.u_id 
+            WHERE users.username = ?";
     $stmt = mysqli_prepare($conn, $sql);
     
     if ($stmt === false) {
@@ -35,6 +38,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             $_SESSION['u_id'] = $row['u_id']; 
 
             // เปลี่ยนเส้นทางไปยังหน้าที่แตกต่างกันตามประเภทผู้ใช้
+             // ตรวจสอบประเภทผู้ใช้และเปลี่ยนเส้นทาง
+             if ($row['u_type'] === 'Professor') {
+                if ($row['pf_role'] === 'Advisor') {
+                    header("Location: Professor-Page/advisor_dashboard.php");
+                } elseif ($row['pf_role'] === 'Coordinator') {
+                    header("Location: Professor-Page/coordinator_dashboard.php");
+                } else {
+                    header("Location: Professor-Page/default_dashboard.php");
+                }
+            } else {
+                switch ($row['u_type']) {
+                    case 'Student':
+                        header("Location: Student-Page/student_dashboard.php");
+                        break;
+                    case 'Staff':
+                        header("Location: Staff-Page/staff_dashboard.php");
+                        break;
+                    case 'Company':
+                        header("Location: company_dashboard.php");
+                        break;
+                    case 'Admin':
+                        header("Location: admin_dashboard.php");
+                        break;
+                    default:
+                        header("Location: welcome.php");
+                        break;
+                }
+
             switch ($row['u_type']) {
                 case 'Student':
                     header("Location: Student-Page\student_dashboard.php");
@@ -54,6 +85,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 default:
                     header("Location: welcome.php");
                     break;
+            }
+                
             }
             exit();
         } else {
