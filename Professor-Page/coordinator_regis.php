@@ -15,7 +15,7 @@ if ($_SESSION['u_type'] != 'Professor') {
 
 // ดึงข้อมูลของอาจารย์จากฐานข้อมูล
 $u_id = $_SESSION['u_id']; // รับค่าจาก session ที่เก็บ user_id
-$query = "SELECT pf_id,pf_fname, pf_lname FROM professor WHERE u_id = '$u_id'"; // คำสั่ง SQL ที่ใช้ค้นหาข้อมูลอาจารย์
+$query = "SELECT * FROM professor WHERE u_id = '$u_id'"; // คำสั่ง SQL ที่ใช้ค้นหาข้อมูลอาจารย์
 
 $result = mysqli_query($conn, $query); // ดำเนินการคำสั่ง SQL
 
@@ -37,7 +37,7 @@ function displayStudentData($conn,$pf_id) {
               JOIN student s ON u.u_id = s.u_id
               JOIN registration r ON s.std_id = r.std_id 
               JOIN professor p ON r.pf_id = p.pf_id
-              WHERE u.u_type = 'Student' AND r.pf_id = '$pf_id'";
+              WHERE u.u_type = 'Student'AND r.reg_status in ('01','02','2.1') AND r.pf_id = $pf_id ";
 
     $result = mysqli_query($conn, $query);
 

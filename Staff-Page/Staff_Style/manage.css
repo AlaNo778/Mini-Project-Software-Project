@@ -1,0 +1,407 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.header {
+    background-color: #FBDB48;
+    height: 55px;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header .logo {
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 20px;
+}
+.header .user {
+    margin-right: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    font-weight: 200;
+}
+      
+.header .bar-user{
+    display: flex;
+    align-items: center;
+}
+.menu {
+    display: flex;
+    flex-wrap: wrap; /* ทำให้เมนูสามารถขึ้นบรรทัดใหม่ได้ */
+    justify-content: center;
+    margin-top: 50px;
+    gap: 20px; /* เพิ่มระยะห่างระหว่างเมนู */
+    max-width: 800px; /* จำกัดความกว้าง */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.menu-item {
+    text-align: center;
+    width: 300px; /* กำหนดขนาดให้ขึ้นแถวใหม่อัตโนมัติ */
+    font-weight: 200;
+    font-family: 'Arial, Helvetica, sans-serif';
+    padding: 20px;
+}
+
+.menu-item img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+}
+
+.menu-item p {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.logo-psu img{
+    width: 52px;
+    height: 28 px;
+    padding: 2px;
+    margin-left: 120px;
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+/* ไอคอนเมนู */
+.hamburger-icon img{  
+    width: 47px;
+    height: 38px;
+    margin-top: 10px;
+    margin-left: 28px;
+}
+
+/* เมนูแถบข้าง */
+.menu-sidebar {
+    position: fixed;
+    justify-content: left;
+    top: 55px;
+    left: -250px; /* ซ่อนเมนูไว้ */
+    width: 250px;
+    height: 100vh;
+    background-color: #F5F5F5;
+    transition: 0.3s;
+    padding-top: 60px;
+}
+
+/* ลิงก์เมนู */
+.menu-sidebar a {
+    display: flex;  /* ใช้ flex เพื่อให้ไอคอนและข้อความอยู่ในแนวเดียวกัน */
+    align-items: center; /* จัดข้อความและไอคอนให้อยู่ตรงกลางในแนวตั้ง */
+    padding: 10px 20px;  /* เพิ่มช่องว่างซ้าย-ขวา */
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.2s;
+    justify-content: flex-start; /* ทำให้ข้อความและไอคอนชิดซ้าย */
+    margin-top: 20px;
+    
+    
+}
+
+.menu-sidebar a:hover {
+    background-color: #fbf3ce;
+}
+
+/* เมนูแสดงเมื่อเปิด */
+.menu-sidebar.active {
+    left: 0;
+}
+.menu-sidebar a img {
+    width: 35px;  /* ขนาดของไอคอนในเมนู */
+    height: 35px; /* ขนาดของไอคอนในเมนู */
+    margin-right: 20px; /* เว้นระยะจากข้อความ */
+}
+
+.menu-sidebar a:nth-child(3) img {
+    margin-left: 4px;
+    margin-right: 15px;  /* เลื่อนไอคอนไปทางขวา 2px */
+}
+.menu-sidebar a:nth-child(4) img {
+    width: 32px;
+    height: 32px;
+    margin-right: 23px;  /* เลื่อนไอคอนไปทางขวา 2px */
+}
+
+/* Style The Dropdown Button */
+.dropbtn {
+    background-color: #FBDB48;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #35599E;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    left: auto;
+    right: -50%;
+    top: 100%;
+    align-items: center;
+    
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    
+    
+    
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #35599E}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {
+    background-color: #FBDB48;
+  }
+
+  .dropdown-content a img {
+    width: 22px;
+    height: 22px;
+    margin-left: 5px;
+    margin-right: 10px;
+  }
+  .profile-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #007BFF; /* สีพื้นหลัง */
+    color: white;
+    font-size: 15px;
+    font-weight: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
+    margin-right: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+}
+.bar-user {
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    border: none;
+    background: #ddd;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+    margin: 0 5px;
+}
+
+.tab-button.active {
+    background: #f1c40f;
+    font-weight: bold;
+}
+
+.tab-content {
+    width: 80%; /* กำหนดความกว้างให้ตารางเท่ากัน */
+    display: none; /* ซ่อนตารางที่ไม่ได้เลือก */
+    margin-top: 20px;
+}
+
+.tab-content.active {
+    display: block; /* แสดงเฉพาะตารางที่ถูกเลือก */
+}
+
+table {
+    width: 100%; /* ตารางจะกว้างเต็ม div ที่ครอบอยู่ */
+    border-collapse: collapse;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+th ,td{
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #007BFF;
+}
+
+
+thead {
+    display: table-header-group;
+}
+
+tbody {
+    display: table-row-group;
+    
+}
+
+tr {
+    display: table-row;
+}
+
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-left: 300px;
+}
+
+.breadcrumb-item {
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    color: #333;
+    background-color: white;
+    margin-right: 10px;
+}
+
+.breadcrumb-item.active {
+    background-color: #FFD966;
+    color: black;
+    border: none;
+    font-weight: bold;
+}
+.as{
+    margin-right: 48.7%;
+}
+.breadcrumb-item.active::before {
+    content: "✔";
+    margin-right: 5px;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: none !important; 
+}
+
+.breadcrumb-item.active::before {
+    content: "✔" !important; 
+    color: black;
+}
+
+.table-container {
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    max-height: 450px; /* กำหนดความสูงสูงสุดของตาราง */
+    overflow-y: auto; /* ทำให้สามารถเลื่อนขึ้น-ลงได้ */
+    position: relative;
+    top: 20px;
+    margin-left: 20%;
+    border: 1px solid #ddd;
+}
+
+.advisor-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.advisor-table th {
+    background-color:#FFE570;
+    padding: 10px;
+    text-align: center;
+    position: sticky;
+    top: 0; /* ทำให้หัวตารางคงที่ตอนเลื่อน */
+    z-index: 1;
+}
+
+.advisor-table td {
+    border: 1px solid #ddd;
+    padding: 7px;
+}
+
+.add-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+    position: relative; /* ให้สามารถเลื่อนไปทางขวาแบบกำหนดเอง */
+    margin-left: 200px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    width: 40%; /* ปรับขนาดช่องค้นหา */
+    max-width: 40px;
+    margin-left: 20px; /* ดันไปทางขวา */
+}
+
+.add-user-btn {
+    background-color: #FFD570;
+    border: none;
+    padding: 6px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 50px;
+    margin-left: 5%; /* ปรับระยะห่างระหว่างปุ่มค้นหาและปุ่มเพิ่มผู้ใช้ใหม่ */
+}
+
+.header-container {
+    display: flex;
+    align-items: center;  /* จัดให้อยู่ตรงกลางแนวตั้ง */
+    justify-content: space-between; /* จัดให้อยู่ซ้าย-ขวา */
+    width: 100%;
+    padding: 10px 20px;
+    margin-bottom: 10px; /* เพิ่มระยะห่างระหว่าง header กับตาราง */
+}
+
+.company {
+    font-size: 20px;
+    font-weight: bold;
+    white-space: nowrap; /* ป้องกันขึ้นบรรทัดใหม่ */
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+    position: relative; /* ให้สามารถเลื่อนไปทางขวาแบบกำหนดเอง */
+}

@@ -1,0 +1,642 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    font-family: "Prompt", sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.header {
+    background-color: #FBDB48;
+    height: 55px;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header .logo {
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 20px;
+}
+.header .user {
+    margin-right: 20px;
+    font-family: "Prompt", Helvetica, sans-serif;
+    font-size: large;
+    font-weight: 200;
+    
+    
+}
+.header .bar-user{
+    display: flex;
+    align-items: center;
+}
+.menu {
+    display: flex;
+    justify-content: center;
+    margin-top: 130px;
+}
+.menu-item {
+    text-align: center;
+    margin: 0 20px;
+    font-weight: 200;
+    font-family: "Prompt", Helvetica, sans-serif;
+    padding: 50px;
+
+}
+.menu-item img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    
+    
+}
+.menu-item p {
+    margin-top: 10px;
+    font-size: 18px;
+    color: black;
+}
+.menu-item a {
+    text-decoration: none;
+}
+.logo-psu img{
+    width: 52px;
+    height: 28 px;
+    padding: 2px;
+    margin-left: 120px;
+}
+/* Hamburger Menu */
+.hamburger-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+/* ไอคอนเมนู */
+.hamburger-icon img{  
+    width: 47px;
+    height: 38px;
+    margin-top: 10px;
+    margin-left: 28px;
+}
+
+/* เมนูแถบข้าง */
+.menu-sidebar {
+    position: fixed;
+    justify-content: left;
+    top: 55px;
+    left: -250px; /* ซ่อนเมนูไว้ */
+    width: 250px;
+    height: 100vh;
+    background-color: #F5F5F5;
+    transition: 0.3s;
+    padding-top: 60px;
+}
+
+/* ลิงก์เมนู */
+.menu-sidebar a {
+    display: flex;  /* ใช้ flex เพื่อให้ไอคอนและข้อความอยู่ในแนวเดียวกัน */
+    align-items: center; /* จัดข้อความและไอคอนให้อยู่ตรงกลางในแนวตั้ง */
+    padding: 10px 20px;  /* เพิ่มช่องว่างซ้าย-ขวา */
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.2s;
+    justify-content: flex-start; /* ทำให้ข้อความและไอคอนชิดซ้าย */
+    margin-top: 20px;
+    font-family: "Prompt";
+    
+    
+}
+
+.menu-sidebar a:hover {
+    background-color: #fbf3ce;
+}
+
+/* เมนูแสดงเมื่อเปิด */
+.menu-sidebar.active {
+    left: 0;
+}
+.menu-sidebar a img {
+    width: 35px;  /* ขนาดของไอคอนในเมนู */
+    height: 35px; /* ขนาดของไอคอนในเมนู */
+    margin-right: 20px; /* เว้นระยะจากข้อความ */
+}
+
+.menu-sidebar a:nth-child(3) img {
+    margin-left: 4px;
+    margin-right: 15px;  /* เลื่อนไอคอนไปทางขวา 2px */
+}
+.menu-sidebar a:nth-child(4) img {
+    width: 32px;
+    height: 32px;
+    margin-right: 23px;  /* เลื่อนไอคอนไปทางขวา 2px */
+}
+
+/* Style The Dropdown Button */
+.dropbtn {
+    background-color: #FBDB48;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #35599E;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    left: auto;
+    right: -30%;
+    top: 100%;
+    align-items: center;
+    
+    
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    
+    
+    
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #35599E}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {
+    background-color: #FBDB48;
+  }
+
+  .dropdown-content a img {
+    width: 22px;
+    height: 22px;
+    margin-left: 5px;
+    margin-right: 10px;
+  }
+  .profile-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #007BFF; /* สีพื้นหลัง */
+    color: white;
+    font-size: 15px;
+    font-weight: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
+    margin-right: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+    font-family: "Prompt";
+}
+.container {
+    max-width:151vh;
+    height: 88vh;
+    margin-left: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);   
+}
+
+
+.header-profile {
+    display: flex;
+    gap: 10px;
+    margin-left: 85px;
+    padding-bottom: 80px;
+    
+}
+.header-profile a {
+    border: 1px solid rgb(199, 199, 199);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    display: inline-block;
+    border-radius: 7px;
+    text-decoration: none;
+    color: black;
+}
+
+.header-profile .Y-button {
+    background-color: #FBDB48;
+}
+
+.profile-card {
+    width: 300px;
+    height: 400px;
+    padding: 20px;
+    background: #ffffff;
+    border: 2px solid black;
+    border-radius: 0px;
+    margin-right: 90px;
+    position: relative;
+    text-align: center;
+   
+}
+.profile-card img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: #6c757d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 10;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+
+}
+.profile-info {
+    margin-left: 10px;
+    margin-top: 80px;
+}
+.info-list {
+    margin-top: -150px;
+    display: flex; /* ทำให้ div ภายในอยู่ในบรรทัดเดียวกัน */
+    align-items: flex-start; /* จัดแนวด้านบนให้ตรงกัน */
+}
+
+
+.info-list p {
+    margin: 5px 0;
+    text-align: left;
+    padding: 8px;
+    font-size: 23px;
+    
+}
+
+.info-list {
+    margin-bottom: 0px; /* ขยับไปทางขวา 50px */
+}
+
+
+.info-list .fix-text{
+    text-align: left;
+}
+
+
+.info-list .nonfix-text{
+    margin-left: 40px;
+    text-align: left;
+}
+
+.edit-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 18px;
+    
+}
+.edit-link:hover {
+    text-decoration: underline;
+}
+.in-container{
+    
+    display: flex;
+    align-items: center;
+    /*justify-content: space-evenly;*/
+    margin-left: 90px;
+    margin-bottom: 100px;
+}
+
+.header-profile2{
+    text-align: left;
+    margin-left: 85px;
+    font-size: 30px;
+    font-style: normal;
+}
+
+.in-info{
+    margin-top: 45px;
+    
+}
+.edit-profile-content{
+    display: flex;
+    padding-left: 50px;
+    padding-bottom: 50px;
+    /*margin-left: 90px;*/
+    text-align: left;
+    font-size: 22px;
+}
+
+.container-edit {
+    max-width:151vh;
+    height: 88vh;
+    margin-left: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    
+    
+    
+}
+.header-profile-edit {
+    display: flex;
+    gap: 10px;
+    margin-left: 85px;
+    padding-bottom: 50px;
+    
+}
+.header-profile-edit a {
+    border: 1px solid rgb(199, 199, 199);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    display: inline-block;
+    border-radius: 7px;
+    text-decoration: none;
+    color: black;
+}
+.header-profile2-edit{
+    text-align: left;
+    margin-left: 85px;
+    font-size: 30px;
+    font-style: normal;
+}
+
+.header-profile-edit .Y-button {
+    background-color: #FBDB48;
+}
+
+
+.edit-all-profile .info-edit{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.info-edit {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-edit input, .info-edit-dropdown {
+    width: 280px; /* ให้ select และ input กว้างเท่ากัน */
+    height: 35px; /* ให้ select สูงเท่ากับ input */
+    margin-left: 80px;
+    padding: 8px;
+    font-size: 18px;
+    margin-bottom:5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.info-edit-dropdown {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+/* ปรับ dropdown เมื่อ hover */
+.info-edit-dropdown:hover {
+    border-color: #888;
+}
+
+/* ปรับ dropdown เมื่อคลิก */
+.info-edit-dropdown:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+
+.edit-all-profile{
+    display: flex;
+    flex-direction: row;
+}
+.edit-fix-info p{
+    text-align: left;
+    margin-left: 90px;
+    font-size: 20px;
+    
+}
+
+.edit-img{
+    display: flex;
+    flex-direction: column;
+    margin-left: 90px;
+    align-items: center;
+    
+}
+
+input[type="file"] {
+    margin-top: 40px;
+    color: transparent;
+    
+    
+}
+
+.custom-file-upload {
+    display: inline-block;
+    width: 110px;
+    padding: 6px 24px;
+    background-color: rgb(194, 194, 194); /* สีเหลือง */
+    color: black; /* สีข้อความ */
+    font-size: 18px;
+    border-radius: 15px; /* ความโค้งมน */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.custom-file-upload:hover {
+    background-color: #FBDB48; /* สีเหลืองเข้มขึ้นเมื่อ hover */
+}
+
+.custom-file-upload input {
+    display: none; /* ซ่อน input file */
+}
+
+.edit-img p{
+    color: red;
+}
+
+
+.button-group{
+    margin-top: 40px;
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+}
+.button-group button{
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    
+}
+
+.b-red{
+    background-color: #fd9393;
+    color: black;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.b-red img{
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    margin-left: 10px;
+    
+}
+.b-red a{
+    font-family: "Prompt", sans-serif;
+    font-size: 18px;
+    
+    
+}
+.b-blue{
+    background-color: rgb(151, 151, 253);
+    color: black;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.b-blue{
+    font-family: "Prompt", sans-serif;
+    font-size: 18px;
+}
+
+.b-green{
+    background-color: rgb(140, 255, 140);
+    color: black;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+}
+.b-green{
+    font-family: "Prompt", sans-serif;
+    font-size: 18px;
+}
+
+.button-group{
+    margin-top: 40px;
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+}
+.button-group button{
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    
+}
+.button-group a {
+    text-decoration: none;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* จัดให้อยู่ทางซ้าย */
+    margin-left: auto; /* ดันไปทางขวาสุด */
+    margin-right: 150px; /* ปรับระยะห่างจากขอบขวา */
+    width: fit-content;
+}
+
+
+.form-row {
+  display: flex;
+  align-items: flex-start; /* จัด label กับ input ให้บนเส้นเดียวกัน (top-aligned) */
+  margin-bottom: 15px;     /* เว้นระยะระหว่างแถว */
+}
+
+/* ส่วน label และส่วน input แยกเป็น 2 คอลัมน์ */
+.form-label {
+  width: 30%;        /* ความกว้างคอลัมน์ label */
+  padding-right: 10px;
+  text-align: right; /* จัดข้อความชิดขวา */
+}
+
+.form-field {
+  width: 70%;        /* ความกว้างคอลัมน์ input */
+}
+
+/* สำหรับกรณีใน 1 แถวมีหลายคอลัมน์ (เช่น ชื่อ-นามสกุล) */
+.form-col {
+  flex: 1;           /* ให้คอลัมน์ขยายตามพื้นที่ที่เหลือ */
+  display: flex;     /* ซ้อน flex อีกชั้น */
+  flex-direction: column;
+  margin-right: 10px; /* เว้นช่องว่างระหว่าง col */
+}
+
+/* ปรับสไตล์อินพุต */
+input[type="text"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* ถ้าไม่ใช่ col สุดท้าย ให้ margin-right เพื่อเว้นระยะ */
+.form-col:last-child {
+  margin-right: 0;
+}
+
+/* ปุ่มกด */
+.btn-submit {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff; /* หรือสีอื่นตามต้องการ */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    width: 100px; /* ปรับขนาด label */
+    text-align: right;
+    margin-right: 10px;
+}
+
+.form-group input, 
+.form-group select {
+    flex: 1;
+    padding: 5px;
+}
+
+.name-container {
+    display: flex;
+    align-items: center;
+}
+
+.name-container input {
+    width: 50%; /* ทำให้ช่องชื่อและนามสกุลเท่ากัน */
+    margin-left: 10px;
+}

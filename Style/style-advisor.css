@@ -737,17 +737,19 @@ p {
 }
 .info-edit{
     display: contents;
+    
 }
 
 .info-edit input{
     width: 280px;
-    height: 20px;
+    height: 30px;
     margin-left: 80px;
     padding: 8px;
     margin-bottom: 3px;
     font-size: 16px;
     margin-bottom: 2px;
-    margin-top: 20%;
+    margin-top: 15px;
+    
     
     
     
@@ -886,9 +888,7 @@ input[type="file"] {
     margin-left: 40px;
     text-align: left;
 }
-.nonfix-text{
-    margin-top: 10%;
-}
+
 
 .edit-link {
     color: #007bff;
@@ -979,23 +979,11 @@ input[type="file"] {
     display: contents;
 }
 
-.info-edit input{
-    width: 280px;
-    height: 20px;
-    margin-left: 80px;
-    padding: 8px;
-    margin-bottom: 3px;
-    font-size: 18px;
-    margin-bottom: 2px;
-    margin-top: 20px;
-    
-    
-    
-}
 
 .edit-all-profile{
     display: flex;
     flex-direction: row;
+    margin-top: 20px;
 }
 .edit-fix-info p{
     text-align: left;
@@ -1097,4 +1085,13 @@ input[type="file"] {
 }
 .button-group a {
     text-decoration: none;
+}
+.dropdown-list-major-branch{
+    width: 280px;
+    height: 40px;
+    margin-left: 22%;
+    padding: 7px;
+    font-size: 18px;
+    margin-bottom: 2px;
+    margin-top: 10px;
 }

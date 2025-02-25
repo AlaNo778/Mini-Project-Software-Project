@@ -111,7 +111,7 @@ body {
     align-items: center;
     justify-content: center;
     position: absolute; /* Allow positioning above the box */
-    top: 29vh; /* Move logo above the box */
+    top: 25vh; /* Move logo above the box */
     object-fit: contain;
     left: 50%;
     transform: translateX(-50%); /* Center the logo horizontally */

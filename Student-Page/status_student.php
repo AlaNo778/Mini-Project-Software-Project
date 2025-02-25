@@ -25,24 +25,64 @@ if (mysqli_num_rows($result) > 0) {
     $firstLetter = mb_substr($row['std_fname'], 0, 1, "UTF-8");
 }
 
-$query_reg_id = "SELECT r.reg_id ,r.reg_comment ,d.doc_regis_approve,d.doc_sent_approve  FROM registration r JOIN document d ON r.doc_id = d.doc_id WHERE r.std_id = '$std_id' ";
- 
-$result_reg_id = mysqli_query($conn, $query_reg_id); 
-$row_reg_id = mysqli_fetch_assoc($result_reg_id);
-$row_id = $row_reg_id['reg_id'];
-$row_reg_comment = $row_reg_id['reg_comment'];
-$row_doc_regis = $row_reg_id['doc_regis_approve'];
-$row_doc_sent = $row_reg_id['doc_sent_approve'];
+$query_reg_id = "
+    SELECT r.reg_id, r.reg_comment
+    FROM registration r
+    WHERE r.std_id = ?";
 
+$stmt = $conn->prepare($query_reg_id);
+$stmt->bind_param("s", $std_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
-
-
-
-if ((empty($row_reg_id) || $row_reg_comment != Null )){
-    header("Location: student_dashboard.php");    
-    exit();
+// ตรวจสอบว่าพบข้อมูลหรือไม่
+if ($row_reg_id = $result->fetch_assoc()) {
+    $row_id = $row_reg_id['reg_id'];
+    $row_reg_comment = $row_reg_id['reg_comment'];
+    
+} else {
+    // ถ้าไม่พบข้อมูล ตั้งค่าเป็น null หรือค่าเริ่มต้น
+    $row_id = null;
+    $row_reg_comment = null;
+    $row_doc_regis = null;
+    $row_doc_sent = null;
 }
 
+// ปิด Statement
+$stmt->close();
+
+
+$query_doc_id = "
+    SELECT d.*
+    FROM registration r
+    JOIN document d ON r.doc_id = d.doc_id
+    WHERE r.std_id = ?";
+
+$stmt2 = $conn->prepare($query_doc_id);
+$stmt2->bind_param("s", $std_id);
+$stmt2->execute();
+$result2 = $stmt2->get_result();
+
+// ตรวจสอบว่าพบข้อมูลหรือไม่
+if ($row_doc_id = $result2->fetch_assoc()) {
+    $row_doc_regis = $row_doc_id['doc_regis_approve'];
+    $row_doc_sent = $row_doc_id['doc_sent_approve'];
+    
+} else {
+    $row_doc_regis = null;
+    $row_doc_sent = null;
+}
+
+// ปิด Statement
+$stmt2->close();
+
+
+
+
+
+if(empty($row_id) || $row_reg_comment != null){
+    header("Location: student_dashboard.php"); 
+    } 
 ?>
 
 <!DOCTYPE html>
@@ -293,7 +333,7 @@ if ((empty($row_reg_id) || $row_reg_comment != Null )){
                     <div class="tab-pane fade" id="nav-file-sent" role="tabpanel" aria-labelledby="nav-file-sent" tabindex="0">
                         <div class="card-body">
                         <p><strong>หนังสือขอความอนุเคราะห์:</strong>
-                                <?php if (!empty($row['reg_paper'])): ?>
+                                <?php if (!empty($row_doc_regis)): ?>
                                     <a href="./../File/File_regis_ap/<?= $row_doc_regis ?>" target="_blank" class="btn btn-outline-primary">
                                         <i class="fas fa-file-pdf"></i> หนังสือขอความอนุเคราะห์ (<?= htmlspecialchars($row["username"]) ?>)</a>
                                 <?php else: ?>
@@ -302,7 +342,7 @@ if ((empty($row_reg_id) || $row_reg_comment != Null )){
                                     </a>
                                 <?php endif; ?>
                             <p><strong>หนังสือส่งตัว:</strong>
-                                <?php if (!empty($row['reg_transcript'])): ?>
+                                <?php if (!empty($row_doc_sent)): ?>
                                     <a href="./../File/File_sent_ap/<?= $row_doc_sent ?>" target="_blank" class="btn btn-outline-primary">
                                         <i class="fas fa-file-pdf"></i> หนังสือส่งตัว: (<?= htmlspecialchars($row["username"]) ?>)</a>
                                 <?php else: ?>

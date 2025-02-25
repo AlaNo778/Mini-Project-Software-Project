@@ -2,6 +2,7 @@
 session_start();
 include '..\config.php';
 
+// Check if user is logged in and has the correct user type
 if (!isset($_SESSION['u_type'])) {
     header("Location: ..\index.php");
     exit();
@@ -12,6 +13,7 @@ if ($_SESSION['u_type'] != 'Company') {
     exit();
 }
 
+// Get company name using session user ID
 $u_id = $_SESSION['u_id']; 
 $query = "SELECT comp_name FROM Company WHERE u_id = '$u_id'"; 
 
@@ -19,8 +21,9 @@ $result = mysqli_query($conn, $query);
 
 if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
-    $Name = $row['comp_name']; 
-
+    $companyName = $row['comp_name'];  // Company Name
+    
+    // Extract the first letter for profile circle
     $firstLetter = mb_substr($row['comp_name'], 0, 1, "UTF-8"); 
 }
 ?>
@@ -37,7 +40,9 @@ if (mysqli_num_rows($result) > 0) {
 </head>
 <body>
 
+    <!-- Header Section -->
     <div class="header">
+        <!-- Hamburger Menu and Sidebar -->
         <div class="hamburger-menu">
             <div class="hamburger-icon" onclick="toggleMenu()">
                 <img src="../Icon/i5.png" alt="Menu Icon">
@@ -45,30 +50,36 @@ if (mysqli_num_rows($result) > 0) {
             <div class="menu-sidebar" id="menuSidebar">
                 <a href="company_dashboard.php"><img src="../Icon/i1.png" alt="Home Icon"> หน้าหลัก</a>
                 <a href="company_profile.php"><img src="../Icon/i2.png" alt="Profile Icon"> ข้อมูลส่วนตัว</a>
-                <a href="form_registration.php"><img src="../Icon/i3.png" alt="Form Icon"> กรอกใบสมัคร</a>
-                <a href="status.php"><img src="../Icon/i4.png" alt="Status Icon"> สถานะ</a>
+                <a href="company_Intern.php"><img src="../Icon/i3.png" alt="Form Icon"> ใบสหกิจ</a>
             </div>
         </div>
-        <div class="logo-psu"><img src="../Icon/icon-psu.png" alt="PSU Logo"></div>
+
+        <!-- PSU Logo -->
+        <div class="logo-psu">
+            <img src="../Icon/icon-psu.png" alt="PSU Logo">
+        </div>
+
+        <!-- User Profile and Dropdown -->
         <div class="bar-user">
-            <div class="user"><?= $Name ?> </div>
+            <div class="user"><?= $companyName ?> </div>
             <div class="profile-circle"><?= $firstLetter ?></div>
             <div class="dropdown">
                 <button class="dropbtn"><i class="fas fa-chevron-down"></i></button>
                 <div class="dropdown-content">
-                    <a href="#"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
+                    <a href="company_update.php"><img src="../Icon/i6.png" alt="EditProfile Icon">จัดการบัญชี</a>
                     <a href="../logout.php"><img src="../Icon/i7.png" alt="Logout Icon">ออกจากระบบ</a>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Main Menu Section -->
     <div class="menu">
-        <a href="#" class="menu-item" data-url="company_profile.php">
+        <a href="company_profile.php" class="menu-item">
             <img src="../Icon/icon-profile.png" alt="ข้อมูลส่วนตัว">
             <p>ข้อมูลส่วนตัว</p>
         </a>
-        <a href="#" class="menu-item" data-url="form_registration.php">
+        <a href="company_Intern.php" class="menu-item">
             <img src="../Icon/icon_regis.png" alt="ใบสมัครสหกิจ">
             <p>ใบสมัครสหกิจ</p>
         </a>

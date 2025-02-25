@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                     header("Location: Student-Page\student_dashboard.php");
                     break;
                 case 'Staff':
-                    header("Location: staff_dashboard.php");
+                    header("Location: Staff-Page\staff_dashboard.php");
                     break;
                 case 'Professor':
                     header("Location: Professor-Page\professor_dashboard.php");
@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                     header("Location: Company-Page\company_dashboard.php");
                     break;
                 case 'Admin':
-                    header("Location: admin_dashboard.php");
+                    header("Location: Admin-Page\admin_dashboard.php");
                     break;
                 default:
                     header("Location: welcome.php");

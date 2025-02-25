@@ -149,10 +149,10 @@ $firstLetter = mb_substr($row['pf_fname'], 0, 1, "UTF-8");
             <h2>ข้อมูลนักศึกษา</h2>
             <nav aria-label="breadcrumb">
                 <div class="btn-group btn-group-sm" role="group" aria-label="page">
-                    <a class="btn btn-outline-secondary" href="advisor_dashboard.php">หน้าหลัก</a>
+                    <a class="btn btn-outline-secondary" href="coordinator_dashboard.php">หน้าหลัก</a>
                 </div>
                 <div class="btn-group btn-group-sm" role="group" aria-label="page">
-                    <a class="btn btn-outline-secondary" href="advisor_dashboard.php">ข้อมูลส่วนตัว</a>
+                    <a class="btn btn-outline-secondary" href="coodinator_dashboard.php">ข้อมูลส่วนตัว</a>
                 </div>
                 <div class="btn-group btn-group-sm" role="group" aria-label="page">
                     <button class="btn btn-warning">เเก้ไขข้อมูลส่วนตัว</button>
@@ -174,8 +174,21 @@ $firstLetter = mb_substr($row['pf_fname'], 0, 1, "UTF-8");
                                     <input type="text" name="pf_fname" value="<?= $row['pf_fname'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
                                     <input type="text" name="pf_lname" value="<?= $row['pf_lname'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
                                     
-                                  
-                                    <input type="text" name="pf_major"value="<?= $row['pf_major'] ?>"<?= !$editable ? 'disabled' : '' ?> required >
+                                
+                                    <select class ="dropdown-list-major-branch" name="pf_major" <?= !$editable ? 'disabled' : '' ?> required>
+                                        <?php 
+                                        $majors = ['เคมี', 'ฟิสิกส์', 'วัสดุศาสตร์', 'วิทยาศาสตร์พอลิเมอร์', 
+                                                'วิทยาศาสตร์และเทคโนโลยีพอลิเมอร์', 'ชีววิทยา', 'จุลชีววิทยา', 
+                                                'เทคโนโลยีชีวภาพ', 'เทคโนโลยีชีวภาพโมเลกุลและชีวสารสนเทศ', 
+                                                'คณิตศาสตร์', 'สถิติ', 'วิทยาการคอมพิวเตอร์', 
+                                                'เทคโนโลยีสารสนเทศและการสื่อสาร', 'เทคโนโลยีสารสนเทศ', 
+                                                'เคมี-ชีววิทยาประยุกต์'];
+                                        foreach ($majors as $major) {
+                                            $selected = ($row['pf_major'] == $major) ? 'selected' : '';
+                                            echo "<option value='$major' $selected>$major</option>";
+                                        }
+                                        ?>
+                                    </select>
                                     <input type="text" name="u_type"value="<?= $row['u_type'] ?>" disabled >
                                     <input type="email" name="pf_email" value="<?= $row['pf_email'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
                                     <input type="text"  name="pf_tel" value="<?= $row['pf_tel'] ?>" <?= !$editable ? 'disabled' : '' ?> required>
